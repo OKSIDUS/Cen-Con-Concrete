@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.Api", "Cen-Con.Api\Cen-Con.Api.csproj", "{E46D09BE-2CA6-4C73-99E3-410698FE995B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.DAL", "Cen-Con.DAL\Cen-Con.DAL.csproj", "{414FB9D1-C6E0-4327-9662-3C9A6187B6A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.BAL", "Cen-Con.BAL\Cen-Con.BAL.csproj", "{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E46D09BE-2CA6-4C73-99E3-410698FE995B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E46D09BE-2CA6-4C73-99E3-410698FE995B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E46D09BE-2CA6-4C73-99E3-410698FE995B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E46D09BE-2CA6-4C73-99E3-410698FE995B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{414FB9D1-C6E0-4327-9662-3C9A6187B6A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{414FB9D1-C6E0-4327-9662-3C9A6187B6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{414FB9D1-C6E0-4327-9662-3C9A6187B6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{414FB9D1-C6E0-4327-9662-3C9A6187B6A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
