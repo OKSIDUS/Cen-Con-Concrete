@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cen-Con.DAL\Cen-Con.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

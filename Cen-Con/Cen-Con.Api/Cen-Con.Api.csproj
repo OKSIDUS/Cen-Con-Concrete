@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cen-Con.BAL\Cen-Con.BAL.csproj" />
+    <ProjectReference Include="..\Cen-Con.DAL\Cen-Con.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,19 @@
+﻿using Cen_Con.DAL.DataContext.Entity;
+using Microsoft.EntityFrameworkCore;
+using Cen_Con.DAL.DataContext.Entity;
+
+namespace Cen_Con.DAL.DataContext
+{
+    public class CenConDbContext : DbContext
+    {
+        public CenConDbContext(DbContextOptions<CenConDbContext> options) : base(options) { }
+        public DbSet<Types> Types { get; set; }
+        public static string TablePrefix { get; set; } = "";
+        public static string Schema { get; set; } = "dbo";
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+}
