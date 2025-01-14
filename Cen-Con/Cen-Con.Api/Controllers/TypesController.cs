@@ -1,5 +1,6 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.DataContext.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cen_Con.Api.Controllers
@@ -20,7 +21,7 @@ namespace Cen_Con.Api.Controllers
         {
             var result = await _typesService.GetById(id);
             Console.WriteLine("Types Controller: " + result);
-            return Content(result.Name.ToString());
+            return Ok(result);
         }
     }
 }

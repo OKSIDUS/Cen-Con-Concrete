@@ -14,10 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<CenConDbContext>(options =>
-                options.UseSqlServer(defaultConnectionString));
-
-Console.WriteLine("Default Connection String: " + defaultConnectionString);
+builder.Services.AddDbContext<CenConDbContext>(options =>
+    options.UseSqlServer(defaultConnectionString));
 
 //DAL
 builder.Services.AddScoped<ITypesRepository, TypesRepository>();

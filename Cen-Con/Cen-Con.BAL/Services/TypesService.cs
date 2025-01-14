@@ -32,8 +32,6 @@ namespace Cen_Con.BAL.Services
                         Date = result.Date,
                     };
                 }
-
-                return null;
             }
 
             return null;
