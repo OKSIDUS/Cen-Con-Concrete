@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cen_Con.DAL.DataContext.Entity
 {
-    [Table("TypesDB")]
+    [Table("TestDB")]
     public class Types
     {
         [Key]

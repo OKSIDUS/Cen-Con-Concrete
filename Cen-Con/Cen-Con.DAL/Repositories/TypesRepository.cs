@@ -1,15 +1,18 @@
 ﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
+using Cen_Con.LOG;
 
 namespace Cen_Con.DAL.Repositories
 {
     public class TypesRepository : ITypesRepository
     {
         private readonly CenConDbContext _dbContext;
-
-        public TypesRepository(CenConDbContext dbContext)
+        private readonly IConsoleDebug _consoleDebug;
+        
+        public TypesRepository(CenConDbContext dbContext, IConsoleDebug consoleDebug)
         {
             _dbContext = dbContext;
+            _consoleDebug = consoleDebug;
         }
 
         public async Task<Types?> GetById(int id)
@@ -17,7 +20,10 @@ namespace Cen_Con.DAL.Repositories
             try
             {
                 var type = await _dbContext.Types.FindAsync(id);
-                Console.WriteLine("Types Repos: " + type);
+
+                _consoleDebug.SendMessage($"Types Repository : Id: {type.Id}, Name: {type.Name}, Date: {type.Date}");
+
+
                 return type;
             }
             catch (Exception ex)

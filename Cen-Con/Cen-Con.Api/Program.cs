@@ -2,6 +2,7 @@ using Cen_Con.BAL.Interfaces;
 using Cen_Con.BAL.Services;
 using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.Repositories;
+using Cen_Con.LOG;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,9 @@ builder.Services.AddScoped<ITypesRepository, TypesRepository>();
 
 //BAL
 builder.Services.AddScoped<ITypesService, TypesService>();
+
+//LOG
+builder.Services.AddScoped<IConsoleDebug, ConsoleDebug>();
 
 var app = builder.Build();
 

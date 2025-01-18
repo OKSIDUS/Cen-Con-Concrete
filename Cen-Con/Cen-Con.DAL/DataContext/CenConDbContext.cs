@@ -1,7 +1,5 @@
 ﻿using Cen_Con.DAL.DataContext.Entity;
 using Microsoft.EntityFrameworkCore;
-using Cen_Con.DAL.DataContext.Entity;
-
 namespace Cen_Con.DAL.DataContext
 {
     public class CenConDbContext : DbContext
