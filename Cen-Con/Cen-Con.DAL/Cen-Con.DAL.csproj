@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cen-Con.LOG\Cen-Con.LOG.csproj" />
+    <ProjectReference Include="..\Cen-Con.INF\Cen-Con.INF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

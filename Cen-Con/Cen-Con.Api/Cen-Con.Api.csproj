@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cen-Con.BAL\Cen-Con.BAL.csproj" />
     <ProjectReference Include="..\Cen-Con.DAL\Cen-Con.DAL.csproj" />
-    <ProjectReference Include="..\Cen-Con.LOG\Cen-Con.LOG.csproj" />
+    <ProjectReference Include="..\Cen-Con.INF\Cen-Con.INF.csproj" />
   </ItemGroup>
 
 </Project>

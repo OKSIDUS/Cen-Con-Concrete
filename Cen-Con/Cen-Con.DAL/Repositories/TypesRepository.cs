@@ -1,6 +1,6 @@
 ﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
-using Cen_Con.LOG;
+using Cen_Con.INF;
 
 namespace Cen_Con.DAL.Repositories
 {

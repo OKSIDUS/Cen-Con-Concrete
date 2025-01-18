@@ -2,7 +2,7 @@ using Cen_Con.BAL.Interfaces;
 using Cen_Con.BAL.Services;
 using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.Repositories;
-using Cen_Con.LOG;
+using Cen_Con.INF;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

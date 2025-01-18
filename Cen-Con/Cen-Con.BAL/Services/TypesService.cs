@@ -1,7 +1,7 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
 using Cen_Con.DAL.Repositories;
-using Cen_Con.LOG;
+using Cen_Con.INF;
 using System;
 using System.Collections.Generic;
 using System.Linq;

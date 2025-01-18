@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.DAL", "Cen-Con.DAL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.BAL", "Cen-Con.BAL\Cen-Con.BAL.csproj", "{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.LOG", "Cen-Con.LOG\Cen-Con.LOG.csproj", "{F6479615-DFCD-4CD0-9271-D0D5508CE273}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cen-Con.INF", "Cen-Con.INF\Cen-Con.INF.csproj", "{C4143959-3739-44DC-95D1-70863F7B58B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A371E6F-7BAB-4CBD-AE51-E47C736E4681}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6479615-DFCD-4CD0-9271-D0D5508CE273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6479615-DFCD-4CD0-9271-D0D5508CE273}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6479615-DFCD-4CD0-9271-D0D5508CE273}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6479615-DFCD-4CD0-9271-D0D5508CE273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4143959-3739-44DC-95D1-70863F7B58B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4143959-3739-44DC-95D1-70863F7B58B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4143959-3739-44DC-95D1-70863F7B58B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4143959-3739-44DC-95D1-70863F7B58B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
 using Cen_Con.DAL.DataContext.Entity;
-using Cen_Con.LOG;
+using Cen_Con.INF;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cen_Con.Api.Controllers
