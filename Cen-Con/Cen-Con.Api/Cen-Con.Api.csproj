@@ -8,7 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cen-Con.BAL\Cen-Con.BAL.csproj" />
+    <ProjectReference Include="..\Cen-Con.DAL\Cen-Con.DAL.csproj" />
+    <ProjectReference Include="..\Cen-Con.INF\Cen-Con.INF.csproj" />
   </ItemGroup>
 
 </Project>
