@@ -18,9 +18,9 @@ namespace Cen_Con.Api.Controllers
         [HttpGet("get-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _typesService.GetById(id);
             try
             {
+                var result = await _typesService.GetById(id);
                 if (result == null)
                 {
                     Log.Warning($"Type with ID {id} isn't exist!");
