@@ -1,0 +1,4 @@
+{"Timestamp":"2025-01-18T18:01:05.4227945-08:00","Level":"Error","MessageTemplate":"Exception Object reference not set to an instance of an object. code ","TraceId":"e818e2a69b1a1e174598a77c7620c73c","SpanId":"e761a93dc20ed2a0"}
+{"Timestamp":"2025-01-18T18:01:07.0137986-08:00","Level":"Error","MessageTemplate":"Exception Object reference not set to an instance of an object. code ","TraceId":"68a18a23cbebafd5bbd2eda34b63f0bb","SpanId":"0c19dd3f26fbbecd"}
+{"Timestamp":"2025-01-19T09:02:22.7073259-08:00","Level":"Warning","MessageTemplate":"Type with ID 5 not found in DB","TraceId":"17a5a740221e4bc79f5c83fa06b66162","SpanId":"5cc927eb1ba47369"}
+{"Timestamp":"2025-01-19T09:02:22.7099319-08:00","Level":"Warning","MessageTemplate":"Type with ID 5 isn't exist!","TraceId":"17a5a740221e4bc79f5c83fa06b66162","SpanId":"5cc927eb1ba47369"}

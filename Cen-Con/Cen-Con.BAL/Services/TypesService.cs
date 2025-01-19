@@ -1,44 +1,42 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
 using Cen_Con.DAL.Repositories;
-using Cen_Con.INF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
 
 namespace Cen_Con.BAL.Services
 {
     public class TypesService : ITypesService
     {
         private readonly ITypesRepository _typesRepository;
-        private readonly IConsoleDebug _consoleDebug;
 
-        public TypesService(ITypesRepository typesRepository, IConsoleDebug consoleDebug)
+        public TypesService(ITypesRepository typesRepository)
         {
             _typesRepository = typesRepository;
-            _consoleDebug = consoleDebug;
         }
 
         public async Task<TypesDto?> GetById(int id)
         {
-            if (id > 0)
+            try
             {
-                var result = await _typesRepository.GetById(id);
-
-                _consoleDebug.SendWarning($"TypesService : Id: {result.Id}, Name: {result.Name}, Date: {result.Date}");
-
-                if (result is not null)
+                if (id > 0)
                 {
-                    return new TypesDto
+                    var result = await _typesRepository.GetById(id);
+
+                    if (result is not null)
                     {
-                        Name = result.Name,
-                        Date = result.Date,
-                    };
+                        Log.Information($"Result has name - {result.Name} and was created {result.Date}");
+                        return new TypesDto
+                        {
+                            Name = result.Name,
+                            Date = result.Date,
+                        };
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An error occurred while fetching the record with ID: {Id}", id);
+            }
             return null;
         }
     }
