@@ -1,8 +1,6 @@
-using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
-using Cen_Con.DAL.DataContext.Entity;
-using Cen_Con.INF;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Cen_Con.Api.Controllers
 {
@@ -11,20 +9,32 @@ namespace Cen_Con.Api.Controllers
     public class TypesController : Controller
     {
         private readonly ITypesService _typesService;
-        private readonly IConsoleDebug _consoleDebug;
 
-        public TypesController(ITypesService typesService, IConsoleDebug consoleDebug)
+        public TypesController(ITypesService typesService)
         {
             _typesService = typesService;
-            _consoleDebug = consoleDebug;
         }
 
         [HttpGet("get-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _typesService.GetById(id);
-            _consoleDebug.SendError($"TypesController : Name: {result.Name}, Date: {result.Date}");
-            return Ok(result);
+            try
+            {
+                if (result == null)
+                {
+                    Log.Warning($"Type with ID {id} isn't exist!");
+                    return NotFound();
+                }
+
+                Log.Information($"Type : {result.Id} with name {result.Name}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"Exception {ex.Message} code: {ex.InnerException}");
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
