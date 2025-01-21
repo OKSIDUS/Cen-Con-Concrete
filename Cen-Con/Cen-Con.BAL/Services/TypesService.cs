@@ -1,6 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
-using Cen_Con.DAL.Repositories;
+using Cen_Con.DAL.Repositories.Interfaces;
 using Serilog;
 
 namespace Cen_Con.BAL.Services
