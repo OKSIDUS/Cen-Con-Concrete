@@ -13,6 +13,10 @@ namespace Cen_Con.BAL.Dtos.Types
         public string PourType { get; set; }
         public int FinishTypeId { get; set; }
         public int JobType { get; set; }
+        public int StatusId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public int CrewId { get; set; }
 
     }
 }

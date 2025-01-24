@@ -33,6 +33,18 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("FinishTypeId")]
         [Required]
         public int FinishTypeId { get; set; }
+        [Column("StatusId")]
+        [Required]
+        public int StatusId { get; set; }
+        [Column("CreatedAt")]
+        [Required]
+        public DateTime CreatedAt { get; set; }
+        [Column("UpdatedAt")]
+        [Required]
+        public DateTime UpdatedAt { get; set; }
+        [Column("CrewId")]
+        [Required]
+        public int CrewId { get; set; }
         [Column("JobType")]
         [Required]
         public int JobType { get; set; }

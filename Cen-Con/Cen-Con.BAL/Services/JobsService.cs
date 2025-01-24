@@ -32,6 +32,10 @@ namespace Cen_Con.BAL.Services
                     OrderedId = job.OrderId,
                     PourType = job.PourType,
                     SquareFeet = job.SquareFeet,
+                    StatusId = job.StatusId,
+                    CreatedAt = job.CreatedAt,
+                    UpdatedAt = job.UpdatedAt,
+                    CrewId = job.CrewId
                 });
                 return result;
             }
@@ -67,6 +71,10 @@ namespace Cen_Con.BAL.Services
                         OrderId = result.OrderedId,
                         PourType = result.PourType,
                         SquareFeet = result.SquareFeet,
+                        StatusId = result.StatusId,
+                        CreatedAt = result.CreatedAt,
+                        UpdatedAt = result.UpdatedAt,
+                        CrewId = result.CrewId
                     };
                 }
                 return null;
@@ -90,6 +98,10 @@ namespace Cen_Con.BAL.Services
                     OrderedId = job.OrderId,
                     PourType = job.PourType,
                     SquareFeet = job.SquareFeet,
+                    StatusId = job.StatusId,
+                    CreatedAt = job.CreatedAt,
+                    UpdatedAt = job.UpdatedAt,
+                    CrewId = job.CrewId
                 });
                 return result;
             }
