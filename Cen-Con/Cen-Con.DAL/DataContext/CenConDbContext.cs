@@ -11,6 +11,7 @@ namespace Cen_Con.DAL.DataContext
         public DbSet<Finishes> Finishes { get; set; }
         public DbSet<Jobs> Jobs { get; set; }
         public DbSet<Statuses> Statuses { get; set; }
+        public DbSet<ConcreteOrder> OrderedBy { get; set; }
         public CenConDbContext(DbContextOptions options) : base(options) { }
         public static string TablePrefix { get; set; } = "";
         public static string Schema { get; set; } = "dbo";

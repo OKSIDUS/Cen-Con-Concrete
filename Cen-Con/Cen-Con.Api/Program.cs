@@ -33,6 +33,7 @@ builder.Services.AddScoped<ICrewsRepository, CrewsRepository>();
 builder.Services.AddScoped<IFinishesRepository, FinishRepository>();
 builder.Services.AddScoped<IJobsRepository, JobsRepository>();
 builder.Services.AddScoped<IStatusesRepository, StatusesRepository>();
+builder.Services.AddScoped<IConcreteOrderRepository, ConcreteOrderRepository>();
 
 //BAL
 builder.Services.AddScoped<ITypesService, TypesService>();

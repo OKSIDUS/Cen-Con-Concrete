@@ -23,7 +23,7 @@ namespace Cen_Con.DAL.DataContext.Entity
         public decimal Depth { get; set; }
         [Column("OrderBy")]
         [Required]
-        public ConcreteOrder OrderBy { get; set; }
+        public int OrderedById { get; set; }
         [Column("ConcreteSupplierId")]
         [Required]
         public int ConcreteSupplierId { get; set; }
@@ -36,9 +36,6 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("JobType")]
         [Required]
         public int JobType { get; set; }
-
-
-        public enum ConcreteOrder { Client, Company }
 
     }
 }

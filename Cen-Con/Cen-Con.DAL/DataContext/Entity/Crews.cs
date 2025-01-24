@@ -14,12 +14,10 @@ namespace Cen_Con.DAL.DataContext.Entity
         public string CrewName { get; set; }
         [Column("JobType")]
         [Required]
-        public JobTypes JobType { get; set; }
+        public int JobTypeId { get; set; }
 
         [Required]
         [Column("PricePerCubicMeter", TypeName = "decimal(10,2)")]
         public decimal PricePerCubicMeter { get; set; }
-
-        public enum JobTypes { Commercial, Residential }
     }
 }
