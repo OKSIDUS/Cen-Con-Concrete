@@ -43,6 +43,7 @@ builder.Services.AddScoped<ICrewsService, CrewService>();
 builder.Services.AddScoped<IFinishesService, FinishesService>();
 builder.Services.AddScoped<IJobsService, JobsService>();
 builder.Services.AddScoped<IStatusesService, StatusesService>();
+builder.Services.AddScoped<IConcreteOrderService, ConcreteOrderService>();
 
 var app = builder.Build();
 
