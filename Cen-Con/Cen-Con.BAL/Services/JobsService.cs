@@ -29,7 +29,7 @@ namespace Cen_Con.BAL.Services
                     Depth = job.Depth,
                     FinishTypeId = job.FinishTypeId,
                     Location = job.Location,
-                    OrderBy = (DAL.DataContext.Entity.Jobs.ConcreteOrder)job.OrderBy,
+                    OrderedId = job.OrderId,
                     PourType = job.PourType,
                     SquareFeet = job.SquareFeet,
                 });
@@ -64,7 +64,7 @@ namespace Cen_Con.BAL.Services
                         Depth = result.Depth,
                         FinishTypeId = result.FinishTypeId,
                         Location = result.Location,
-                        OrderBy = (JobsDto.ConcreteOrder)result.OrderBy,
+                        OrderId = result.OrderedId,
                         PourType = result.PourType,
                         SquareFeet = result.SquareFeet,
                     };
@@ -87,7 +87,7 @@ namespace Cen_Con.BAL.Services
                     Depth = job.Depth,
                     FinishTypeId = job.FinishTypeId,
                     Location = job.Location,
-                    OrderBy = (Jobs.ConcreteOrder)job.OrderBy,
+                    OrderedId = job.OrderId,
                     PourType = job.PourType,
                     SquareFeet = job.SquareFeet,
                 });

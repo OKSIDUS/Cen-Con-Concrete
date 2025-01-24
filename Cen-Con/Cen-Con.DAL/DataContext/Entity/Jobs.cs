@@ -23,7 +23,7 @@ namespace Cen_Con.DAL.DataContext.Entity
         public decimal Depth { get; set; }
         [Column("OrderBy")]
         [Required]
-        public int OrderedById { get; set; }
+        public int OrderedId { get; set; }
         [Column("ConcreteSupplierId")]
         [Required]
         public int ConcreteSupplierId { get; set; }
