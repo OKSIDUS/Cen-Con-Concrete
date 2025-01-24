@@ -3,9 +3,8 @@
     public class CrewsCreateDto
     {
         public string CrewName { get; set; }
-        public JobTypes JobType { get; set; }
+        public int JobTypeId { get; set; }
         public decimal PricePerCubicMeter { get; set; }
 
-        public enum JobTypes { Commercial, Residential }
     }
 }

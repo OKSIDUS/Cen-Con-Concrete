@@ -21,7 +21,7 @@ namespace Cen_Con.BAL.Services
                 {
                    CrewName = crew.CrewName,
                    PricePerCubicMeter = crew.PricePerCubicMeter,
-                   JobType = (DAL.DataContext.Entity.Crews.JobTypes)crew.JobType
+                   JobTypeId = crew.JobTypeId
                 });
                 return result;
             }
@@ -50,7 +50,7 @@ namespace Cen_Con.BAL.Services
                         Id = result.Id,
                         CrewName = result.CrewName,
                         PricePerCubicMeter= result.PricePerCubicMeter,
-                        JobType = (CrewsCreateDto.JobTypes)result.JobType
+                        JobTypeId = result.JobTypeId
                     };
                 }
                 return null;
@@ -67,7 +67,7 @@ namespace Cen_Con.BAL.Services
                     Id = crew.Id,
                     CrewName = crew.CrewName,
                     PricePerCubicMeter = crew.PricePerCubicMeter,
-                    JobType = (DAL.DataContext.Entity.Crews.JobTypes)crew.JobType
+                    JobTypeId = crew.JobTypeId
                 });
                 return result;
             }
