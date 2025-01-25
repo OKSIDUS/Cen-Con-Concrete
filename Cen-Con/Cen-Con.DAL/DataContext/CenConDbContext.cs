@@ -4,7 +4,6 @@ namespace Cen_Con.DAL.DataContext
 {
     public class CenConDbContext : DbContext
     {
-        public DbSet<Types> Types { get; set; } 
         public DbSet<Clients> Clients { get; set; }
         public DbSet<ConcreteSuppliers> ConcreteSuppliers { get; set; }
         public DbSet<Crews> Crews { get; set; }
