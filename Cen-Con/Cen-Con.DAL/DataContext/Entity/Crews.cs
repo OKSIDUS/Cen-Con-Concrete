@@ -12,7 +12,7 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("CrewName")]
         [Required]
         public string CrewName { get; set; }
-        [Column("JobType")]
+        [Column("JobTypeId")]
         [Required]
         public int JobTypeId { get; set; }
 

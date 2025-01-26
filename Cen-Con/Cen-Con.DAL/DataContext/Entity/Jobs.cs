@@ -45,9 +45,9 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("CrewId")]
         [Required]
         public int CrewId { get; set; }
-        [Column("JobType")]
+        [Column("JobTypeId")]
         [Required]
-        public int JobType { get; set; }
+        public int JobTypeId { get; set; }
 
     }
 }

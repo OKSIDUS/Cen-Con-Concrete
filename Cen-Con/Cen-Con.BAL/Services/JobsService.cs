@@ -23,7 +23,7 @@ namespace Cen_Con.BAL.Services
             {
                 var result = await _jobsRepository.CreateJob(new DAL.DataContext.Entity.Jobs
                 {
-                    JobType = job.JobType,
+                    JobTypeId = job.JobType,
                     ClientId = job.ClientId,
                     ConcreteSupplierId = job.ConcreteSupplierId,
                     Depth = job.Depth,
@@ -62,7 +62,7 @@ namespace Cen_Con.BAL.Services
                     return new JobsDto
                     {
                         Id = result.Id,
-                        JobType = result.JobType,
+                        JobType = result.JobTypeId,
                         ClientId = result.ClientId,
                         ConcreteSupplierId = result.ConcreteSupplierId,
                         Depth = result.Depth,
@@ -89,7 +89,7 @@ namespace Cen_Con.BAL.Services
                 var result = await _jobsRepository.UpdateJob(new DAL.DataContext.Entity.Jobs
                 {
                     Id = job.Id,
-                    JobType = job.JobType,
+                    JobTypeId = job.JobType,
                     ClientId = job.ClientId,
                     ConcreteSupplierId = job.ConcreteSupplierId,
                     Depth = job.Depth,
