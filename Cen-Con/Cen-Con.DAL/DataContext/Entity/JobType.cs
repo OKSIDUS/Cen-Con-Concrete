@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cen_Con.DAL.DataContext.Entity
 {
     [Table("JobTypes")]
-    public class JobTypes
+    public class JobType
     {
         [Key]
         [Column("Id")]

@@ -33,6 +33,7 @@ builder.Services.AddScoped<IFinishesRepository, FinishRepository>();
 builder.Services.AddScoped<IJobsRepository, JobsRepository>();
 builder.Services.AddScoped<IStatusesRepository, StatusesRepository>();
 builder.Services.AddScoped<IConcreteOrderRepository, ConcreteOrderRepository>();
+builder.Services.AddScoped<IJobTypesRepository, JobTypesRepository>();
 
 //BAL
 builder.Services.AddScoped<IClientsService, ClientService>();
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IFinishesService, FinishesService>();
 builder.Services.AddScoped<IJobsService, JobsService>();
 builder.Services.AddScoped<IStatusesService, StatusesService>();
 builder.Services.AddScoped<IConcreteOrderService, ConcreteOrderService>();
+builder.Services.AddScoped<IJobTypeService, JobTypeService>();
 
 var app = builder.Build();
 
