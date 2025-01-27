@@ -4,6 +4,7 @@ namespace Cen_Con.DAL.Repositories.Interfaces
 {
     public interface IJobsRepository
     {
+        Task<List<Jobs>> GetAllJobs();
         Task<Jobs?> GetById(int id);
         Task<bool> DeleteJob(int id);
         Task<bool> CreateJob(Jobs job);

@@ -16,6 +16,27 @@ namespace Cen_Con.Api.Controllers
             _jobsService = jobsService;
         }
 
+        [HttpGet("get-jobs")]
+        public async Task<IActionResult> GetAllJobs()
+        {
+            try
+            {
+                var result = await _jobsService.GetAllJobs();
+                if (result == null)
+                {
+                    Log.Warning($"The jobs aren't exist!");
+                    return NotFound();
+
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"JobshController: The job get all jobs process has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("get-job-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
