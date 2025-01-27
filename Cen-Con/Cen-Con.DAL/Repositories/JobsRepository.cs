@@ -2,6 +2,7 @@
 using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -53,6 +54,25 @@ namespace Cen_Con.DAL.Repositories
             {
                 Log.Error($"The job delete process has finished with error: {ex.Message}!");
                 return false;
+            }
+        }
+
+        public async Task<List<Jobs>> GetAllJobs()
+        {
+            try
+            {
+                var jobs = await _dbContext.Jobs.ToListAsync();
+                if(jobs is null)
+                {
+                    Log.Warning($"No jobs were found!");
+                    return null;
+                }
+                return jobs;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The job get all jobs process has finished with error: {ex.Message}!");
+                return null;
             }
         }
 

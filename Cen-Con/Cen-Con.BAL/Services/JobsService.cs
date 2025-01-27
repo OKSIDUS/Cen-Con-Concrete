@@ -5,6 +5,7 @@ using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 using MySqlX.XDevAPI;
+using MySqlX.XDevAPI.Common;
 
 namespace Cen_Con.BAL.Services
 {
@@ -50,6 +51,37 @@ namespace Cen_Con.BAL.Services
                 return result;
             }
             return false;
+        }
+
+        public async Task<List<JobsDto>> GetAllJobs()
+        {
+            var jobs = await _jobsRepository.GetAllJobs();
+            if (jobs is not null)
+            {
+                var jobsList = new List<JobsDto>();
+                foreach (var job in jobs)
+                {
+                    jobsList.Add(new JobsDto
+                    {
+                        Id = job.Id,
+                        JobType = job.JobTypeId,
+                        ClientId = job.ClientId,
+                        ConcreteSupplierId = job.ConcreteSupplierId,
+                        Depth = job.Depth,
+                        FinishTypeId = job.FinishTypeId,
+                        Location = job.Location,
+                        OrderId = job.OrderedId,
+                        PourType = job.PourType,
+                        SquareFeet = job.SquareFeet,
+                        StatusId = job.StatusId,
+                        CreatedAt = job.CreatedAt,
+                        UpdatedAt = job.UpdatedAt,
+                        CrewId = job.CrewId
+                    });
+                }
+                return jobsList;
+            }
+            return null;
         }
 
         public async Task<JobsDto?> GetById(int id)

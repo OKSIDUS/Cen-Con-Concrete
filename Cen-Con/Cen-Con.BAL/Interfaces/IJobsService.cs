@@ -4,6 +4,7 @@ namespace Cen_Con.BAL.Interfaces
 {
     public interface IJobsService
     {
+        Task<List<JobsDto>> GetAllJobs();
         Task<JobsDto?> GetById(int id);
         Task<bool> DeleteJob(int id);
         Task<bool> CreateJob(JobsCreateDto job);
