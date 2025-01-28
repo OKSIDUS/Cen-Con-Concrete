@@ -1,0 +1,44 @@
+﻿@using Cen_ConWEB.DAL.Entity
+@model List<Job>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ClientId</th>
+            <th>Location</th>
+            <th>SquareFeet</th>
+            <th>Depth</th>
+            <th>OrderId</th>
+            <th>ConcreteSupplierId</th>
+            <th>PourType</th>
+            <th>FinishTypeId</th>
+            <th>JobType</th>
+            <th>StatusId</th>
+            <th>CreatedAt</th>
+            <th>UpdatedAt</th>
+            <th>CrewId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            <tr>
+                <td>@job.Id</td>
+                <td>@job.ClientId</td>
+                <td>@job.Location</td>
+                <td>@job.SquareFeet</td>
+                <td>@job.Depth</td>
+                <td>@job.OrderId</td>
+                <td>@job.ConcreteSupplierId</td>
+                <td>@job.PourType</td>
+                <td>@job.FinishTypeId</td>
+                <td>@job.JobType</td>
+                <td>@job.StatusId</td>
+                <td>@job.CreatedAt</td>
+                <td>@job.UpdatedAt</td>
+                <td>@job.CrewId</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,4 +1,18 @@
+﻿using Cen_ConWEB.BAL.Interfaces;
+using Cen_ConWEB.BAL.Services;
+using Cen_ConWEB.DAL;
+using Cen_ConWEB.DAL.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Регистрация конфигурации
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+
+//DAL
+builder.Services.AddHttpClient<IJobApiClient, JobApiClient>();
+
+//BAL
+builder.Services.AddScoped<IJobService, JobService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
