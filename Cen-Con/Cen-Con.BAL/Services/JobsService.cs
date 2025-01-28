@@ -58,28 +58,45 @@ namespace Cen_Con.BAL.Services
             var jobs = await _jobsRepository.GetAllJobs();
             if (jobs is not null)
             {
-                var jobsList = new List<JobsDto>();
-                foreach (var job in jobs)
+                //var jobsList = new List<JobsDto>();
+                //foreach (var job in jobs)
+                //{
+                //    jobsList.Add(new JobsDto
+                //    {
+                //        Id = job.Id,
+                //        JobTypeName = job.JobTypeId,
+                //        ClientName = job.ClientId,
+                //        ConcreteSupplierName = job.ConcreteSupplierId,
+                //        Depth = job.Depth,
+                //        FinishTypeName = job.FinishTypeId,
+                //        Location = job.Location,
+                //        ConcreteCustomer = job.OrderedId,
+                //        PourType = job.PourType,
+                //        SquareFeet = job.SquareFeet,
+                //        Status = job.StatusId,
+                //        CreatedAt = job.CreatedAt,
+                //        UpdatedAt = job.UpdatedAt,
+                //        CrewName = job.CrewId
+                //    });
+                //}
+                //return jobsList;
+                return jobs.Select(j => new JobsDto
                 {
-                    jobsList.Add(new JobsDto
-                    {
-                        Id = job.Id,
-                        JobType = job.JobTypeId,
-                        ClientId = job.ClientId,
-                        ConcreteSupplierId = job.ConcreteSupplierId,
-                        Depth = job.Depth,
-                        FinishTypeId = job.FinishTypeId,
-                        Location = job.Location,
-                        OrderId = job.OrderedId,
-                        PourType = job.PourType,
-                        SquareFeet = job.SquareFeet,
-                        StatusId = job.StatusId,
-                        CreatedAt = job.CreatedAt,
-                        UpdatedAt = job.UpdatedAt,
-                        CrewId = job.CrewId
-                    });
-                }
-                return jobsList;
+                    Id = j.Id,
+                    Location = j.Location,
+                    SquareFeet = j.SquareFeet,
+                    Depth = j.Depth,
+                    ConcreteCustomer = j.OrderBy.OrderedBy,
+                    PourType = j.PourType,
+                    FinishTypeName = j.FinishType.FinishName,
+                    Status = j.Status.StatusName,
+                    CreatedAt= j.CreatedAt,
+                    UpdatedAt= j.UpdatedAt,
+                    CrewName = j.Crew.CrewName,
+                    JobTypeName = j.JobType.Type,
+                    ConcreteSupplierName = j.ConcreteSupplier.SupplierName,
+                    ClientName = j.Client.FirstName + " " + j.Client.LastName,
+                }).ToList();
             }
             return null;
         }
@@ -91,23 +108,41 @@ namespace Cen_Con.BAL.Services
                 var result = await _jobsRepository.GetById(id);
                 if (result is not null)
                 {
-                    return new JobsDto
-                    {
-                        Id = result.Id,
-                        JobType = result.JobTypeId,
-                        ClientId = result.ClientId,
-                        ConcreteSupplierId = result.ConcreteSupplierId,
-                        Depth = result.Depth,
-                        FinishTypeId = result.FinishTypeId,
-                        Location = result.Location,
-                        OrderId = result.OrderedId,
-                        PourType = result.PourType,
-                        SquareFeet = result.SquareFeet,
-                        StatusId = result.StatusId,
-                        CreatedAt = result.CreatedAt,
-                        UpdatedAt = result.UpdatedAt,
-                        CrewId = result.CrewId
-                    };
+                    //return new JobsDto
+                    //{
+                    //    Id = result.Id,
+                    //    JobTypeName = result.JobTypeId,
+                    //    ClientName = result.ClientId,
+                    //    ConcreteSupplierName = result.ConcreteSupplierId,
+                    //    Depth = result.Depth,
+                    //    FinishTypeName = result.FinishTypeId,
+                    //    Location = result.Location,
+                    //    ConcreteCustomer = result.OrderedId,
+                    //    PourType = result.PourType,
+                    //    SquareFeet = result.SquareFeet,
+                    //    Status = result.StatusId,
+                    //    CreatedAt = result.CreatedAt,
+                    //    UpdatedAt = result.UpdatedAt,
+                    //    CrewName = result.CrewId
+                    //};
+
+                    //return result.Select(j => new JobsDto
+                    //{
+                    //    Id = j.Id,
+                    //    Location = j.Location,
+                    //    SquareFeet = j.SquareFeet,
+                    //    Depth = j.Depth,
+                    //    ConcreteCustomer = j.Order.OrderedBy,
+                    //    PourType = j.PourType,
+                    //    FinishTypeName = j.FinishType.FinishName,
+                    //    Status = j.Status.StatusName,
+                    //    CreatedAt = j.CreatedAt,
+                    //    UpdatedAt = j.UpdatedAt,
+                    //    CrewName = j.Crew.CrewName,
+                    //    JobTypeName = j.JobType.Type,
+                    //    ConcreteSupplierName = j.ConcreteSupplier.SupplierName,
+                    //    ClientName = j.Client.FirstName + " " + j.Client.LastName,
+                    //});
                 }
                 return null;
             }
@@ -116,27 +151,27 @@ namespace Cen_Con.BAL.Services
 
         public async Task<bool> UpdateJob(JobsDto job)
         {
-            if (job is not null)
-            {
-                var result = await _jobsRepository.UpdateJob(new DAL.DataContext.Entity.Jobs
-                {
-                    Id = job.Id,
-                    JobTypeId = job.JobType,
-                    ClientId = job.ClientId,
-                    ConcreteSupplierId = job.ConcreteSupplierId,
-                    Depth = job.Depth,
-                    FinishTypeId = job.FinishTypeId,
-                    Location = job.Location,
-                    OrderedId = job.OrderId,
-                    PourType = job.PourType,
-                    SquareFeet = job.SquareFeet,
-                    StatusId = job.StatusId,
-                    CreatedAt = job.CreatedAt,
-                    UpdatedAt = job.UpdatedAt,
-                    CrewId = job.CrewId
-                });
-                return result;
-            }
+            //if (job is not null)
+            //{
+            //    var result = await _jobsRepository.UpdateJob(new DAL.DataContext.Entity.Jobs
+            //    {
+            //        Id = job.Id,
+            //        JobTypeId = job.JobTypeName,
+            //        ClientId = job.ClientName,
+            //        ConcreteSupplierId = job.ConcreteSupplierName,
+            //        Depth = job.Depth,
+            //        FinishTypeId = job.FinishTypeName,
+            //        Location = job.Location,
+            //        OrderedId = job.ConcreteCustomer,
+            //        PourType = job.PourType,
+            //        SquareFeet = job.SquareFeet,
+            //        StatusId = job.Status,
+            //        CreatedAt = job.CreatedAt,
+            //        UpdatedAt = job.UpdatedAt,
+            //        CrewId = job.CrewName
+            //    });
+            //    return result;
+            //}
             return false;
         }
     }

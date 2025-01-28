@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MySqlX.XDevAPI;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cen_Con.DAL.DataContext.Entity
@@ -12,6 +13,8 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("ClientId")]
         [Required]
         public int ClientId { get; set; }
+        [ForeignKey("ClientId")]
+        public virtual Clients Client { get; set; } // Навигационное свойство для клиента
         [Column("Location")]
         [Required]
         public string Location { get; set; }
@@ -24,18 +27,27 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("OrderBy")]
         [Required]
         public int OrderedId { get; set; }
+        [ForeignKey("OrderedId")]
+        public virtual ConcreteOrder OrderBy { get; set; }
         [Column("ConcreteSupplierId")]
         [Required]
         public int ConcreteSupplierId { get; set; }
+        [ForeignKey("ConcreteSupplierId")]
+        public virtual ConcreteSuppliers ConcreteSupplier { get; set; } // Поставщик бетона
+
         [Column("PourType")]
         [Required]
         public string PourType { get; set; }
         [Column("FinishTypeId")]
         [Required]
         public int FinishTypeId { get; set; }
+        [ForeignKey("FinishTypeId")]
+        public virtual Finishes FinishType { get; set; } // Тип отделки
         [Column("StatusId")]
         [Required]
         public int StatusId { get; set; }
+        [ForeignKey("StatusId")]
+        public virtual Statuses Status { get; set; } // Статус работы
         [Column("CreatedAt")]
         [Required]
         public DateTime CreatedAt { get; set; }
@@ -45,9 +57,13 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("CrewId")]
         [Required]
         public int CrewId { get; set; }
+        [ForeignKey("CrewId")]
+        public virtual Crews Crew { get; set; } // Бригада
         [Column("JobTypeId")]
         [Required]
         public int JobTypeId { get; set; }
+        [ForeignKey("JobTypeId")]
+        public virtual JobType JobType { get; set; } // Тип работы
 
     }
 }
