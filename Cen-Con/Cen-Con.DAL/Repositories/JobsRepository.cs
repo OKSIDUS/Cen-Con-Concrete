@@ -61,8 +61,16 @@ namespace Cen_Con.DAL.Repositories
         {
             try
             {
-                var jobs = await _dbContext.Jobs.ToListAsync();
-                if(jobs is null)
+                var jobs = await _dbContext.Jobs
+                    .Include(j => j.Client)
+                    .Include(j => j.Crew)
+                    .Include(j => j.ConcreteSupplier)
+                    .Include(j => j.FinishType)
+                    .Include(j => j.Status)
+                    .Include(j => j.JobType)
+                    .Include(j => j.OrderBy)
+                    .ToListAsync();
+                if (jobs is null)
                 {
                     Log.Warning($"No jobs were found!");
                     return null;
