@@ -5,11 +5,11 @@ using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL
 {
-    public class JobApiClient : IJobApiClient
+    public class JobRepository : IJobRepository
     {
         private readonly HttpClient _httpClient;
 
-        public JobApiClient(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
+        public JobRepository(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             if (apiSettings?.Value?.BaseUrl == null)
             {

@@ -2,7 +2,7 @@
 
 namespace Cen_ConWEB.DAL.Interfaces
 {
-    public interface IJobApiClient
+    public interface IJobRepository
     {
         Task<List<Job>> GetAllJobsAsync();
         Task<Job> GetById(int id);

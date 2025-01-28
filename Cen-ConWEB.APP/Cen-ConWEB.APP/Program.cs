@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 
 //DAL
-builder.Services.AddHttpClient<IJobApiClient, JobApiClient>();
+builder.Services.AddHttpClient<IJobRepository, JobRepository>();
 
 //BAL
 builder.Services.AddScoped<IJobService, JobService>();
