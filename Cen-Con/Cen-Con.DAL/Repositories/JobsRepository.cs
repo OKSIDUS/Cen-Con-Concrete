@@ -88,7 +88,15 @@ namespace Cen_Con.DAL.Repositories
         {
             try
             {
-                var job = await _dbContext.Jobs.FindAsync(id);
+                var job = await _dbContext.Jobs
+                    .Include(j => j.Client)
+                    .Include(j => j.Crew)
+                    .Include(j => j.ConcreteSupplier)
+                    .Include(j => j.FinishType)
+                    .Include(j => j.Status)
+                    .Include(j => j.JobType)
+                    .Include(j => j.OrderBy)
+                    .FirstOrDefaultAsync(j => j.Id == id);
                 if (job is null)
                 {
                     Log.Warning($"The job with ID {id} wasn't found!");

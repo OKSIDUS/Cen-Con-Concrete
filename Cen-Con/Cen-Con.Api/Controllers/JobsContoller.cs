@@ -73,7 +73,7 @@ namespace Cen_Con.Api.Controllers
         }
 
         [HttpPost("update-job")]
-        public async Task<IActionResult> UpdateJob(JobsDto job)
+        public async Task<IActionResult> UpdateJob(JobUpdateDto job)
         {
             var result = await _jobsService.UpdateJob(job);
             return Ok(result);
