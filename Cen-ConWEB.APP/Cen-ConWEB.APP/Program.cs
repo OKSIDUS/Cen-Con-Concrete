@@ -1,7 +1,8 @@
 ﻿using Cen_ConWEB.BAL.Interfaces;
 using Cen_ConWEB.BAL.Services;
 using Cen_ConWEB.DAL;
-using Cen_ConWEB.DAL.Interfaces;
+using Cen_ConWEB.DAL.Repositories;
+using Cen_ConWEB.DAL.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

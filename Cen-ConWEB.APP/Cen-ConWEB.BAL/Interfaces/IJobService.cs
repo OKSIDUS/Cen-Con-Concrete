@@ -1,4 +1,4 @@
-﻿using Cen_ConWEB.DAL.Entity;
+﻿using Cen_ConWEB.DAL.DataContext.Entity;
 
 namespace Cen_ConWEB.BAL.Interfaces
 {
