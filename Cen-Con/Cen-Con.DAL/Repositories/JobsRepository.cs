@@ -57,19 +57,27 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
-        public async Task<List<Jobs>> GetAllJobs()
+        public async Task<List<Jobs>> GetAllJobs(bool withDetails)
         {
             try
             {
-                var jobs = await _dbContext.Jobs
-                    .Include(j => j.Client)
-                    .Include(j => j.Crew)
-                    .Include(j => j.ConcreteSupplier)
-                    .Include(j => j.FinishType)
-                    .Include(j => j.Status)
-                    .Include(j => j.JobType)
-                    .Include(j => j.OrderBy)
-                    .ToListAsync();
+                var jobs = new List<Jobs>();
+                if (withDetails)
+                {
+                    jobs = await _dbContext.Jobs
+                        .Include(j => j.Client)
+                        .Include(j => j.Crew)
+                        .Include(j => j.ConcreteSupplier)
+                        .Include(j => j.FinishType)
+                        .Include(j => j.Status)
+                        .Include(j => j.JobType)
+                        .Include(j => j.OrderBy)
+                        .ToListAsync();
+                }
+                else
+                {
+                    jobs = await _dbContext.Jobs.ToListAsync();
+                }
                 if (jobs is null)
                 {
                     Log.Warning($"No jobs were found!");
@@ -84,24 +92,38 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
-        public async Task<Jobs?> GetById(int id)
+        public async Task<Jobs?> GetById(int id, bool withDetails)
         {
             try
             {
-                var job = await _dbContext.Jobs
-                    .Include(j => j.Client)
-                    .Include(j => j.Crew)
-                    .Include(j => j.ConcreteSupplier)
-                    .Include(j => j.FinishType)
-                    .Include(j => j.Status)
-                    .Include(j => j.JobType)
-                    .Include(j => j.OrderBy)
-                    .FirstOrDefaultAsync(j => j.Id == id);
-                if (job is null)
+                Jobs job = new Jobs();
+                if (withDetails)
                 {
-                    Log.Warning($"The job with ID {id} wasn't found!");
-                    return null;
+                    job = await _dbContext.Jobs
+                        .Include(j => j.Client)
+                        .Include(j => j.Crew)
+                        .Include(j => j.ConcreteSupplier)
+                        .Include(j => j.FinishType)
+                        .Include(j => j.Status)
+                        .Include(j => j.JobType)
+                        .Include(j => j.OrderBy)
+                        .FirstOrDefaultAsync(j => j.Id == id);
+                    if (job is null)
+                    {
+                        Log.Warning($"The job with ID {id} wasn't found!");
+                        return null;
+                    }
                 }
+                else
+                {
+                    job = await _dbContext.Jobs.FindAsync(id);
+                    if (job is null)
+                    {
+                        Log.Warning($"The job with ID {id} wasn't found!");
+                        return null;
+                    }
+                }
+
                 return job;
             }
             catch (Exception ex)
