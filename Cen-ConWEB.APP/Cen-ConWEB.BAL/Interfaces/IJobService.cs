@@ -1,11 +1,12 @@
-﻿using Cen_ConWEB.DAL.DataContext.Entity;
+﻿using Cen_ConWEB.BAL.Dtos.Types;
 
 namespace Cen_ConWEB.BAL.Interfaces
 {
     public interface IJobService
     {
-        Task<List<Job>> GetAllJobsAsync();
-
-        Task<Job> GetById(int id);
+        Task<List<JobDetailsDto>> GetAllJobsDetailsAsync();
+        Task<List<JobDto>> GetAllJobsAsync();
+        Task<JobDetailsDto> GetDetailsById(int id);
+        Task<JobDto> GetById(int id);
     }
 }

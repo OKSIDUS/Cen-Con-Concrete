@@ -11,6 +11,12 @@ builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSet
 
 //DAL
 builder.Services.AddHttpClient<IJobRepository, JobRepository>();
+builder.Services.AddHttpClient<ICrewRepository, CrewRepoitory>();
+builder.Services.AddHttpClient<IClientRepository, ClientRepository>();
+builder.Services.AddHttpClient<IConcreteCustomerRepository, ConcreteCustomerRepository>();
+builder.Services.AddHttpClient<IConcreteSupplierRepository, ConcreteSupplierRepository>();
+builder.Services.AddHttpClient<IFinishTypeRepository, FinishTypeRepository>();
+builder.Services.AddHttpClient<IJobTypeRepository, JobTypeRepository>();
 
 //BAL
 builder.Services.AddScoped<IJobService, JobService>();

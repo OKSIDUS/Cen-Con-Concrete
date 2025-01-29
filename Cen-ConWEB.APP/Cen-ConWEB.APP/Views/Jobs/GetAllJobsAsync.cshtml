@@ -1,45 +1,45 @@
 ﻿@using Cen_ConWEB.BAL.Dtos.Types
-@model List<JobDetailsDto>
+@model List<JobDto>
 
 <a href="/Job/create">Create a job</a>
 <table>
     <thead>
         <tr>
             <th>ID</th>
-            <th>ClientName</th>
+            <th>ClientId</th>
             <th>Location</th>
             <th>SquareFeet</th>
             <th>Depth</th>
-            <th>ConcreteCustomer</th>
-            <th>ConcreteSupplier</th>
+            <th>OrderId</th>
+            <th>ConcreteSupplierId</th>
             <th>PourType</th>
-            <th>FinishType</th>
+            <th>FinishTypeId</th>
             <th>JobType</th>
-            <th>Status</th>
+            <th>StatusId</th>
             <th>CreatedAt</th>
             <th>UpdatedAt</th>
-            <th>Crew</th>
+            <th>CrewId</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var job in Model)
         {
-            <a href="/Jobs/get-details/@job.Id" class="page-link">View details of id @job.Id</a>
+            <a href="/Jobs/get/@job.Id" class="page-link">View details of id @job.Id</a>
             <tr>
                 <td>@job.Id</td>
-                <td>@job.ClientName</td>
+                <td>@job.ClientId</td>
                 <td>@job.Location</td>
                 <td>@job.SquareFeet</td>
                 <td>@job.Depth</td>
-                <td>@job.ConcreteCustomer</td>
-                <td>@job.ConcreteSupplier</td>
+                <td>@job.OrderById</td>
+                <td>@job.ConcreteSupplierId</td>
                 <td>@job.PourType</td>
-                <td>@job.FinishType</td>
-                <td>@job.JobTypeName</td>
-                <td>@job.Status</td>
+                <td>@job.FinishTypeId</td>
+                <td>@job.JobType</td>
+                <td>@job.StatusId</td>
                 <td>@job.CreatedAt</td>
                 <td>@job.UpdatedAt</td>
-                <td>@job.CrewName</td>
+                <td>@job.CrewId</td>
             </tr>
         }
     </tbody>

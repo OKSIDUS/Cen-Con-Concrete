@@ -15,16 +15,52 @@ namespace Cen_ConWEB.DAL.Repositories
             _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<List<Job>> GetAllJobsAsync()
+        public async Task<List<Job>> GetAllJobsAsync(bool withDetails)
         {
-            var response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
-            return response ?? new List<Job>();
+            try
+            {
+                List<Job> response = new List<Job>();
+                if (withDetails)
+                {
+                    response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs-details");
+                }
+                else
+                {
+                    response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
+                }
+                return response ?? new List<Job>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Job>();
+            }
         }
 
-        public async Task<Job> GetById(int id)
+        public async Task<Job> GetById(int id, bool withDetails)
         {
-            var response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id/{id}");
-            return response ?? new Job();
+            try
+            {
+
+                var response = new Job();
+                if (withDetails)
+                {
+                    response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id-details/{id}");
+                }
+                else
+                {
+                    response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id/{id}");
+                }
+                return response ?? new Job();
+            }
+            catch (Exception ex)
+            {
+                return new Job();
+            }
+        }
+
+        public async Task<bool> CreateJob(Job job)
+        {
+            return false;
         }
     }
 }
