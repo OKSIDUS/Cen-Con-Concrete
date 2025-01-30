@@ -60,7 +60,19 @@ namespace Cen_ConWEB.DAL.Repositories
 
         public async Task<bool> CreateJob(Job job)
         {
-            return false;
+            try
+            {
+                if (job is not null)
+                {
+                    var response = await _httpClient.PostAsJsonAsync<Job>($"api/create-job", job);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

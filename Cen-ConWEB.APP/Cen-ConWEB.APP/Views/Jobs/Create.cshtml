@@ -1,0 +1,76 @@
+﻿<form method="post" action="/Jobs/create-job-post">
+    <div>
+        <label for="ClientId">Client:</label>
+        <select id="ClientId" name="ClientId" required>
+            <option value="7">adwwadaw 	awdawdaw</option>
+            <option value="8" selected>Andrii Chemnyi</option>
+        </select>
+    </div>
+    <div>
+        <label for="Location">Location:</label>
+        <input type="text" id="Location" name="Location" required />
+    </div>
+    <div>
+        <label for="SquareFeet">Square Feet:</label>
+        <input type="number" step="0.01" id="SquareFeet" name="SquareFeet" required />
+    </div>
+    <div>
+        <label for="Depth">Depth:</label>
+        <input type="number" step="0.01" id="Depth" name="Depth" required />
+    </div>
+    <div>
+        <label for="OrderBy">Order By:</label>
+        <select id="OrderBy" name="OrderBy" required>
+            <option value="1">Order by Client</option>
+            <option value="2">Order by Cen-Con Company</option>
+            <option value="3">Order by wadawdaw</option>
+        </select>
+    </div>
+    <div>
+        <label for="ConcreteSupplierId">Concrete Supplier:</label>
+        <select id="ConcreteSupplierId" name="ConcreteSupplierId" required>
+            <option value="3" selected>	Lafarge</option>
+            <option value="4">wqfqfqw</option>
+        </select>
+    </div>
+    <div>
+        <label for="PourType">Pour Type:</label>
+        <input type="text" id="PourType" name="PourType" required />
+    </div>
+    <div>
+        <label for="FinishTypeId">Finish Type:</label>
+        <select id="FinishTypeId" name="FinishTypeId" required>
+            <option value="2">Polished</option>
+        </select>
+    </div>
+    <div>
+        <label for="JobType">Job Type:</label>
+        <select id="JobType" name="JobType" required>
+            <option value="1">Commertial</option>
+            <option value="2" selected>Residential</option>
+        </select>
+    </div>
+    <div>
+        <label for="StatusId">Status:</label>
+        <select id="StatusId" name="StatusId" required>
+            <option value="1">Waiting</option>
+        </select>
+    </div>
+    <div>
+        <label for="CreatedAt">Created At:</label>
+        <input type="datetime-local" id="CreatedAt" name="CreatedAt" required />
+    </div>
+    <div>
+        <label for="UpdatedAt">Updated At:</label>
+        <input type="datetime-local" id="UpdatedAt" name="UpdatedAt" required />
+    </div>
+    <div>
+        <label for="CrewId">Crew:</label>
+        <select id="CrewId" name="CrewId" required>
+            <option value="4">CenConResCrew</option>
+            <option value="5" selected>CommCrew</option>
+            <option value="6">string</option>
+        </select>
+    </div>
+    <button type="submit">Submit</button>
+</form>

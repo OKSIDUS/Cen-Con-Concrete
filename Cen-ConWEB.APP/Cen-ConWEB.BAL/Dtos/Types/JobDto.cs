@@ -7,7 +7,7 @@
         public string Location { get; set; }
         public decimal SquareFeet { get; set; }
         public decimal Depth { get; set; }
-        public int OrderById { get; set; }
+        public int OrderBy { get; set; }
         public int ConcreteSupplierId { get; set; }
         public string PourType { get; set; }
         public int FinishTypeId { get; set; }

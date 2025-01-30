@@ -1,5 +1,7 @@
-﻿using Cen_ConWEB.BAL.Interfaces;
+﻿using Cen_ConWEB.BAL.Dtos.Types;
+using Cen_ConWEB.BAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Cen_ConWEB.APP.Controllers
 {
@@ -25,7 +27,7 @@ namespace Cen_ConWEB.APP.Controllers
         public async Task<IActionResult> GetAllJobsAsync()
         {
             var jobs = await _jobService.GetAllJobsAsync();
-            return View("GetAllJobsAsync",jobs);
+            return View("GetAllJobsAsync", jobs);
         }
 
         [HttpGet]
@@ -35,7 +37,7 @@ namespace Cen_ConWEB.APP.Controllers
             try
             {
                 var job = await _jobService.GetById(id);
-                return View("GetById",job);
+                return View("GetById", job);
             }
             catch (Exception ex)
             {
@@ -56,6 +58,33 @@ namespace Cen_ConWEB.APP.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("{controller}/create-job")]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("{controller}/create-job-post")]
+        public async Task<IActionResult> CreateJob(JobCreateDto job)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var result = await _jobService.CreateJob(job);
+                    Log.Information(result.ToString(), job.ToString());
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            return View("CreateJob", job);
         }
     }
 }

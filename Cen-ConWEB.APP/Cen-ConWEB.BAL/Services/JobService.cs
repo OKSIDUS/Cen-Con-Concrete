@@ -69,7 +69,7 @@ namespace Cen_ConWEB.BAL.Services
                         Location = job.Location,
                         SquareFeet = job.SquareFeet,
                         Depth = job.Depth,
-                        OrderById = job.OrderById,
+                        OrderBy = job.OrderId,
                         ConcreteSupplierId = job.ConcreteSupplierId,
                         PourType = job.PourType,
                         FinishTypeId = job.FinishTypeId,
@@ -123,7 +123,7 @@ namespace Cen_ConWEB.BAL.Services
                     Location = result.Location,
                     SquareFeet = result.SquareFeet,
                     Depth = result.Depth,
-                    OrderById = result.OrderById,
+                    OrderBy = result.OrderId,
                     ConcreteSupplierId = result.ConcreteSupplierId,
                     PourType = result.PourType,
                     FinishTypeId = result.FinishTypeId,
@@ -135,6 +135,31 @@ namespace Cen_ConWEB.BAL.Services
                 };
             }
             return null;
+        }
+
+        public async Task<bool> CreateJob(JobCreateDto job)
+        {
+            if (job is not null)
+            {
+                var result = await _jobRepository.CreateJob(new Job
+                {
+                    ClientId = job.ClientId,
+                    Location = job.Location,
+                    SquareFeet = job.SquareFeet,
+                    Depth = job.Depth,
+                    OrderId = job.OrderBy,
+                    ConcreteSupplierId = job.ConcreteSupplierId,
+                    PourType = job.PourType,
+                    FinishTypeId = job.FinishTypeId,
+                    JobType = job.JobType,
+                    CreatedAt = job.CreatedAt,
+                    UpdatedAt = job.UpdatedAt,
+                    StatusId = job.StatusId,
+                    CrewId = job.CrewId
+                });
+                return result;
+            }
+            return false;
         }
     }
 }
