@@ -17,62 +17,40 @@ namespace Cen_ConWEB.DAL.Repositories
 
         public async Task<List<Job>> GetAllJobsAsync(bool withDetails)
         {
-            try
+            List<Job> response = new List<Job>();
+            if (withDetails)
             {
-                List<Job> response = new List<Job>();
-                if (withDetails)
-                {
-                    response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs-details");
-                }
-                else
-                {
-                    response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
-                }
-                return response ?? new List<Job>();
+                response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs-details");
             }
-            catch (Exception ex)
+            else
             {
-                return new List<Job>();
+                response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
             }
+            return response ?? new List<Job>();
         }
 
         public async Task<Job> GetById(int id, bool withDetails)
         {
-            try
+            var response = new Job();
+            if (withDetails)
             {
-
-                var response = new Job();
-                if (withDetails)
-                {
-                    response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id-details/{id}");
-                }
-                else
-                {
-                    response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id/{id}");
-                }
-                return response ?? new Job();
+                response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id-details/{id}");
             }
-            catch (Exception ex)
+            else
             {
-                return new Job();
+                response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id/{id}");
             }
+            return response ?? new Job();
         }
 
         public async Task<bool> CreateJob(Job job)
         {
-            try
+            if (job is not null)
             {
-                if (job is not null)
-                {
-                    var response = await _httpClient.PostAsJsonAsync<Job>($"api/create-job", job);
-                    return true;
-                }
-                return false;
+                var response = await _httpClient.PostAsJsonAsync<Job>($"api/create-job", job);
+                return true;
             }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            return false;
         }
     }
 }
