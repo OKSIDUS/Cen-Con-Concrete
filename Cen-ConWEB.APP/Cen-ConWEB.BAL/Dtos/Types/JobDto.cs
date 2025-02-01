@@ -10,7 +10,7 @@
         public string ConcreteCustomer { get; set; }
         public string ConcreteSupplier { get; set; }
         public string PourType { get; set; }
-        public string FinishType { get; set; }
+        public string FinishTypeName { get; set; }
         public string JobTypeName { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }

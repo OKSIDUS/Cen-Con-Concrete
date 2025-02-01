@@ -1,7 +1,9 @@
 ﻿@using Cen_ConWEB.BAL.Dtos.Types
 @model JobDto
 
-<table>
+<a href="/Jobs/create-job" class="btn-link">Create a job</a>
+<a href="/Jobs/get-jobs" class="btn-link">All jobs</a>
+<table class="table">
     <thead>
         <tr>
             <th>ID</th>
@@ -30,7 +32,7 @@
             <td>@Model.ConcreteCustomer</td>
             <td>@Model.ConcreteSupplier</td>
             <td>@Model.PourType</td>
-            <td>@Model.FinishType</td>
+            <td>@Model.FinishTypeName</td>
             <td>@Model.JobTypeName</td>
             <td>@Model.Status</td>
             <td>@Model.CreatedAt</td>

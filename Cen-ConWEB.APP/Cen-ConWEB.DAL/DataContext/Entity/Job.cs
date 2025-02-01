@@ -13,7 +13,7 @@
         public string? ConcreteSupplierName { get; set; }
         public int ConcreteSupplierId { get; set; }
         public string PourType { get; set; }
-        public string? FinishType{ get; set; }
+        public string? FinishTypeName{ get; set; }
         public int FinishTypeId { get; set; }
         public string? JobTypeName { get; set; }
         public int JobType { get; set; }
