@@ -1,8 +1,7 @@
 ﻿@using Cen_ConWEB.BAL.Dtos.Types
-@model List<JobDetailsDto>
+@model List<JobDto>
 
 <a href="/Jobs/create-job">Create a job</a>
-<a href="/Jobs/get-jobs">Get jobs with Id's</a>
 <table>
     <thead>
         <tr>
@@ -25,7 +24,7 @@
     <tbody>
         @foreach (var job in Model)
         {
-            <a href="/Jobs/get-details/@job.Id" class="page-link">View details of id @job.Id</a>
+            <a href="/Jobs/get/@job.Id" class="page-link">View details of id @job.Id</a>
             <tr>
                 <td>@job.Id</td>
                 <td>@job.ClientName</td>

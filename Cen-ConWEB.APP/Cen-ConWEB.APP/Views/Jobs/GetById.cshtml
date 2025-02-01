@@ -1,42 +1,41 @@
 ﻿@using Cen_ConWEB.BAL.Dtos.Types
 @model JobDto
 
-<a href="/Jobs/get-details/@Model.Id">Get job with details</a>
 <table>
     <thead>
         <tr>
             <th>ID</th>
-            <th>ClientId</th>
+            <th>ClientName</th>
             <th>Location</th>
             <th>SquareFeet</th>
             <th>Depth</th>
-            <th>OrderId</th>
-            <th>ConcreteSupplierId</th>
+            <th>ConcreteCustomer</th>
+            <th>ConcreteSupplier</th>
             <th>PourType</th>
-            <th>FinishTypeId</th>
+            <th>FinishType</th>
             <th>JobType</th>
-            <th>StatusId</th>
+            <th>Status</th>
             <th>CreatedAt</th>
             <th>UpdatedAt</th>
-            <th>CrewId</th>
+            <th>CrewName</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>@Model.Id</td>
-            <td>@Model.ClientId</td>
+            <td>@Model.ClientName</td>
             <td>@Model.Location</td>
             <td>@Model.SquareFeet</td>
             <td>@Model.Depth</td>
-            <td>@Model.OrderBy</td>
-            <td>@Model.ConcreteSupplierId</td>
+            <td>@Model.ConcreteCustomer</td>
+            <td>@Model.ConcreteSupplier</td>
             <td>@Model.PourType</td>
-            <td>@Model.FinishTypeId</td>
-            <td>@Model.JobType</td>
-            <td>@Model.StatusId</td>
+            <td>@Model.FinishType</td>
+            <td>@Model.JobTypeName</td>
+            <td>@Model.Status</td>
             <td>@Model.CreatedAt</td>
             <td>@Model.UpdatedAt</td>
-            <td>@Model.CrewId</td>
+            <td>@Model.CrewName</td>
         </tr>
     </tbody>
 </table>

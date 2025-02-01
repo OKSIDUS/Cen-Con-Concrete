@@ -15,31 +15,15 @@ namespace Cen_ConWEB.DAL.Repositories
             _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<List<Job>> GetAllJobsAsync(bool withDetails)
+        public async Task<List<Job>> GetAllJobsAsync()
         {
-            List<Job> response = new List<Job>();
-            if (withDetails)
-            {
-                response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs-details");
-            }
-            else
-            {
-                response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
-            }
+            var response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
             return response ?? new List<Job>();
         }
 
-        public async Task<Job> GetById(int id, bool withDetails)
+        public async Task<Job> GetById(int id)
         {
-            var response = new Job();
-            if (withDetails)
-            {
-                response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id-details/{id}");
-            }
-            else
-            {
-                response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id/{id}");
-            }
+            var response = await _httpClient.GetFromJsonAsync<Job>($"api/get-job-by-id/{id}");
             return response ?? new Job();
         }
 

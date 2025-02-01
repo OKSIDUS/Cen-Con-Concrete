@@ -14,18 +14,18 @@ namespace Cen_ConWEB.BAL.Services
             _jobRepository = jobRepository;
         }
 
-        public async Task<List<JobDetailsDto>> GetAllJobsDetailsAsync()
+        public async Task<List<JobDto>> GetAllJobsAsync()
         {
             try
             {
-                Log.Information("JobsService: GetAllJobsDetailsAsync() started!");
-                var jobs = await _jobRepository.GetAllJobsAsync(true);
+                Log.Information("JobsService: GetAllJobsAsync() started!");
+                var jobs = await _jobRepository.GetAllJobsAsync();
                 if (jobs is not null)
                 {
-                    var jobList = new List<JobDetailsDto>();
+                    var jobList = new List<JobDto>();
                     foreach (var job in jobs)
                     {
-                        jobList.Add(new JobDetailsDto
+                        jobList.Add(new JobDto
                         {
                             Id = job.Id,
                             ClientName = job.ClientName,
@@ -46,48 +46,6 @@ namespace Cen_ConWEB.BAL.Services
                     Log.Information("The jobs details information has been recived!");
                     return jobList;
                 }
-                Log.Warning($"The action GetAllJobsDetailsAsync() can not be completed because of missing information!");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"The action GetAllJobsDetailsAsync() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
-                return null;
-            }
-        }
-
-        public async Task<List<JobDto>> GetAllJobsAsync()
-        {
-            try
-            {
-                Log.Information("JobsService: GetAllJobsAsync() started!");
-                var jobs = await _jobRepository.GetAllJobsAsync(false);
-                if (jobs is not null)
-                { 
-                    var jobList = new List<JobDto>();
-                    foreach (var job in jobs)
-                    {
-                        jobList.Add(new JobDto
-                        {
-                            Id = job.Id,
-                            ClientId = job.ClientId,
-                            Location = job.Location,
-                            SquareFeet = job.SquareFeet,
-                            Depth = job.Depth,
-                            OrderBy = job.OrderId,
-                            ConcreteSupplierId = job.ConcreteSupplierId,
-                            PourType = job.PourType,
-                            FinishTypeId = job.FinishTypeId,
-                            JobType = job.JobType,
-                            StatusId = job.StatusId,
-                            CreatedAt = job.CreatedAt,
-                            UpdatedAt = job.UpdatedAt,
-                            CrewId = job.CrewId
-                        });
-                    }
-                    Log.Information("The jobs information has been recived!");
-                    return jobList;
-                }
                 Log.Warning($"The action GetAllJobsAsync() can not be completed because of missing information!");
                 return null;
             }
@@ -98,18 +56,18 @@ namespace Cen_ConWEB.BAL.Services
             }
         }
 
-        public async Task<JobDetailsDto> GetDetailsById(int id)
+        public async Task<JobDto> GetById(int id)
         {
             try
             {
                 Log.Information("JobsService: GetDetailsById() started!");
                 if (id > 0)
                 {
-                    var result = await _jobRepository.GetById(id, true);
+                    var result = await _jobRepository.GetById(id);
                     if (result is not null)
                     {
                         Log.Information("The job details information has been recived!");
-                        return new JobDetailsDto
+                        return new JobDto
                         {
                             Id = result.Id,
                             ClientName = result.ClientName,
@@ -125,48 +83,6 @@ namespace Cen_ConWEB.BAL.Services
                             CreatedAt = result.CreatedAt,
                             UpdatedAt = result.UpdatedAt,
                             CrewName = result.CrewName
-                        };
-                    }
-                    Log.Warning($"The action GetDetailsById() can not be completed because of missing information!");
-                    return null;
-                }
-                Log.Warning($"The action GetDetailsById() can not be completed because of id = 0!");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"The action GetById() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
-                return null;
-            }
-        }
-
-        public async Task<JobDto> GetById(int id)
-        {
-            try
-            {
-                Log.Information("JobsService: GetById() started!");
-                if (id > 0)
-                {
-                    var result = await _jobRepository.GetById(id, false);
-                    if (result is not null)
-                    {
-                        Log.Information("The job information has been recived!");
-                        return new JobDto
-                        {
-                            Id = result.Id,
-                            ClientId = result.ClientId,
-                            Location = result.Location,
-                            SquareFeet = result.SquareFeet,
-                            Depth = result.Depth,
-                            OrderBy = result.OrderId,
-                            ConcreteSupplierId = result.ConcreteSupplierId,
-                            PourType = result.PourType,
-                            FinishTypeId = result.FinishTypeId,
-                            JobType = result.JobType,
-                            StatusId = result.StatusId,
-                            CreatedAt = result.CreatedAt,
-                            UpdatedAt = result.UpdatedAt,
-                            CrewId = result.CrewId
                         };
                     }
                     Log.Warning($"The action GetById() can not be completed because of missing information!");
