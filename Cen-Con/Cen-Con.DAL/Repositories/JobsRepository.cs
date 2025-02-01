@@ -57,14 +57,11 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
-        public async Task<List<Jobs>> GetAllJobs(bool withDetails)
+        public async Task<List<Jobs>> GetAllJobs()
         {
             try
             {
-                var jobs = new List<Jobs>();
-                if (withDetails)
-                {
-                    jobs = await _dbContext.Jobs
+                var jobs = await _dbContext.Jobs
                         .Include(j => j.Client)
                         .Include(j => j.Crew)
                         .Include(j => j.ConcreteSupplier)
@@ -73,11 +70,6 @@ namespace Cen_Con.DAL.Repositories
                         .Include(j => j.JobType)
                         .Include(j => j.OrderBy)
                         .ToListAsync();
-                }
-                else
-                {
-                    jobs = await _dbContext.Jobs.ToListAsync();
-                }
                 if (jobs is null)
                 {
                     Log.Warning($"No jobs were found!");
@@ -92,14 +84,11 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
-        public async Task<Jobs?> GetById(int id, bool withDetails)
+        public async Task<Jobs?> GetById(int id)
         {
             try
             {
-                Jobs job = new Jobs();
-                if (withDetails)
-                {
-                    job = await _dbContext.Jobs
+                var job = await _dbContext.Jobs
                         .Include(j => j.Client)
                         .Include(j => j.Crew)
                         .Include(j => j.ConcreteSupplier)
@@ -108,22 +97,11 @@ namespace Cen_Con.DAL.Repositories
                         .Include(j => j.JobType)
                         .Include(j => j.OrderBy)
                         .FirstOrDefaultAsync(j => j.Id == id);
-                    if (job is null)
-                    {
-                        Log.Warning($"The job with ID {id} wasn't found!");
-                        return null;
-                    }
-                }
-                else
+                if (job is null)
                 {
-                    job = await _dbContext.Jobs.FindAsync(id);
-                    if (job is null)
-                    {
-                        Log.Warning($"The job with ID {id} wasn't found!");
-                        return null;
-                    }
+                    Log.Warning($"The job with ID {id} wasn't found!");
+                    return null;
                 }
-
                 return job;
             }
             catch (Exception ex)

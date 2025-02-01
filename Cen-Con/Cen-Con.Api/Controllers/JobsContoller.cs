@@ -21,7 +21,7 @@ namespace Cen_Con.Api.Controllers
         {
             try
             {
-                var result = await _jobsService.GetAllJobs(false);
+                var result = await _jobsService.GetAllJobs();
                 if (result == null)
                 {
                     Log.Warning($"JobsController: The jobs aren't exist!");
@@ -37,35 +37,13 @@ namespace Cen_Con.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("get-jobs-details")]
-        public async Task<IActionResult> GetAllJobsDetails()
-        {
-            try
-            {
-                var result = await _jobsService.GetAllJobs(true);
-                if (result == null)
-                {
-                    Log.Warning($"JobsController: The jobs aren't exist!");
-                    return NotFound();
-
-                }
-                Log.Information($"JobsController: The action GetAllJobsDetails() has finished with result: {result}");
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                Log.Debug($"JobsController: The action GetAllJobsDetails() has finished with error {ex.Message}");
-                return BadRequest(ex.Message);
-            }
-        }
-
 
         [HttpGet("get-job-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var result = await _jobsService.GetById(id, false);
+                var result = await _jobsService.GetById(id);
                 if (result == null)
                 {
                     Log.Warning($"JobsController: The job with ID {id} isn't exist!");
@@ -77,27 +55,6 @@ namespace Cen_Con.Api.Controllers
             catch (Exception ex)
             {
                 Log.Debug($"JobsController: The action GetById() has finished with error {ex.Message}");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("get-job-by-id-details/{id}")]
-        public async Task<IActionResult> GetByIdDetails(int id)
-        {
-            try
-            {
-                var result = await _jobsService.GetById(id, true);
-                if (result == null)
-                {
-                    Log.Warning($"JobsController: The job with ID {id} isn't exist!");
-                    return NotFound();
-                }
-                Log.Information($"JobsController: The action GetByIdDetails() has finished with result: {result}");
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                Log.Debug($"JobsController: The action GetByIdDetails() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
