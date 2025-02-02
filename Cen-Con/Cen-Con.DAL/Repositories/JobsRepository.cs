@@ -1,5 +1,4 @@
-﻿
-using Cen_Con.DAL.DataContext;
+﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -73,7 +72,6 @@ namespace Cen_Con.DAL.Repositories
                 if (jobs is null)
                 {
                     Log.Warning($"No jobs were found!");
-                    return null;
                 }
                 return jobs;
             }

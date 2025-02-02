@@ -8,5 +8,6 @@ namespace Cen_Con.DAL.Repositories.Interfaces
         Task<bool> DeleteFinish(int id);
         Task<bool> CreateFinish(Finishes finish);
         Task<bool> UpdateFinish(Finishes finish);
+        Task<List<Finishes>> GetAllFinishes();
     }
 }

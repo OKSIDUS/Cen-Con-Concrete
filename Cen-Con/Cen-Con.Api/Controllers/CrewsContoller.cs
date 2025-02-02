@@ -16,6 +16,28 @@ namespace Cen_Con.Api.Controllers
             _crewsService = crewsService;
         }
 
+        [HttpGet("get-crews")]
+        public async Task<IActionResult> GetAllCrews()
+        {
+            try
+            {
+                var result = await _crewsService.GetAllCrews();
+                if (result == null)
+                {
+                    Log.Warning($"CrewsContoller: The crews aren't exist!");
+                    return NotFound();
+
+                }
+                Log.Information($"CrewsContoller: The action GetAllCrews() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"CrewsContoller: The action GetAllCrews() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("get-crew-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,7 +54,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"CrewController: The crew get by id process has finished with error {ex.Message}");
+                Log.Error($"CrewController: The crew get by id process has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

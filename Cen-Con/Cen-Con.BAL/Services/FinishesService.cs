@@ -1,5 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 
 namespace Cen_Con.BAL.Services
@@ -12,6 +13,21 @@ namespace Cen_Con.BAL.Services
         {
             _finishesRepository = finishesRepository;
         } 
+
+        public async Task<List<FinishesDto>> GetAllFinishes()
+        {
+            var finishes = await _finishesRepository.GetAllFinishes();
+            if (finishes is not null)
+            {
+                return finishes.Select(o => new FinishesDto
+                {
+                    Id = o.Id,
+                    FinishName = o.FinishName
+                }).ToList();
+            }
+            return null;
+        }
+
         public async Task<bool> CreateFinish(FinishesCreateDto finish)
         {
             if (finish is not null)

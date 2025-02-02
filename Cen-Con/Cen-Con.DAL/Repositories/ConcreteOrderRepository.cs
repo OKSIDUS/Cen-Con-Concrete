@@ -1,6 +1,7 @@
 ﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -29,6 +30,24 @@ namespace Cen_Con.DAL.Repositories
             catch (Exception ex) {
                 Log.Error($"The concrete order create process has finished with error: {ex.Message}!");
                 return false;
+            }
+        }
+
+        public async Task<List<ConcreteOrder>> GetAllOrder()
+        {
+            try
+            {
+                var concreteOrders = await _dbContext.OrderedBy.ToListAsync();
+                if (concreteOrders is null)
+                {
+                    Log.Warning($"No concrete order were found!");
+                }
+                return concreteOrders;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The action GetAllOrder() has finished with error: {ex.Message}!");
+                return null;
             }
         }
 
@@ -61,7 +80,6 @@ namespace Cen_Con.DAL.Repositories
                 if (order is null)
                 {
                     Log.Warning($"The concrete order with ID {id} wasn't found!");
-                    return null;
                 }
                 return order;
             }

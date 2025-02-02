@@ -4,6 +4,7 @@ namespace Cen_Con.BAL.Interfaces
 {
     public interface ICrewsService
     {
+        Task<List<CrewsDto>> GetAllCrews();
         Task<CrewsDto?> GetById(int id);
         Task<bool> DeleteCrew(int id);
         Task<bool> CreateCrew(CrewsCreateDto crew);

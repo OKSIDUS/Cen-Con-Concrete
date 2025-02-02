@@ -2,6 +2,7 @@
 using Cen_Con.BAL.Interfaces;
 using Cen_Con.DAL.Repositories.Interfaces;
 using Cen_Con.DAL.DataContext.Entity;
+using Cen_Con.DAL.Repositories;
 
 namespace Cen_Con.BAL.Services
 {
@@ -12,6 +13,20 @@ namespace Cen_Con.BAL.Services
         public JobTypeService(IJobTypesRepository jobTypeRepository)
         {
             _jobTypeRepository = jobTypeRepository;
+        }
+
+        public async Task<List<JobTypeDto>> GetAllJobTypes()
+        {
+            var types = await _jobTypeRepository.GetAllJobTypes();
+            if (types is not null)
+            {
+                return types.Select(o => new JobTypeDto
+                {
+                    Id = o.Id,
+                    TypeName = o.Type
+                }).ToList();
+            }
+            return null;
         }
 
         public async Task<bool> CreateJobType(string typeName)

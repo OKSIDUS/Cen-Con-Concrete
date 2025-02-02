@@ -1,5 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 
 namespace Cen_Con.BAL.Services
@@ -12,6 +13,23 @@ namespace Cen_Con.BAL.Services
         public ClientService(IClientsRepository clientsRepository)
         {
             _clientsRepository = clientsRepository;
+        }
+
+        public async Task<List<ClientsDto>> GetAllClients()
+        {
+            var clients = await _clientsRepository.GetAllClients();
+            if (clients is not null)
+            {
+                return clients.Select(c => new ClientsDto
+                {
+                    Id = c.Id,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    PhoneNumber = c.PhoneNumber
+                }).ToList();
+            }
+            return null;
         }
 
         public async Task<bool> CreateClient(ClientsCreateDto client)

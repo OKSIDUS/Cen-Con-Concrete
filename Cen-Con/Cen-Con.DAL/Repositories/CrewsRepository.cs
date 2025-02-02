@@ -1,6 +1,7 @@
 ﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -12,6 +13,25 @@ namespace Cen_Con.DAL.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task<List<Crews>> GetAllCrews()
+        {
+            try
+            {
+                var crews = await _dbContext.Crews.ToListAsync();
+                if (crews is null)
+                {
+                    Log.Warning($"No crews were found!");
+                }
+                return crews;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The action GetAllCrews() has finished with error: {ex.Message}!");
+                return null;
+            }
+        }
+
         public async Task<bool> CreateCrew(Crews crew)
         {
             try

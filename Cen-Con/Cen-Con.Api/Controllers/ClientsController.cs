@@ -1,5 +1,6 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.BAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -14,6 +15,28 @@ namespace Cen_Con.Api.Controllers
         public ClientsController(IClientsService clientsService)
         {
             _clientsService = clientsService;
+        }
+
+        [HttpGet("get-clients")]
+        public async Task<IActionResult> GetAllClients()
+        {
+            try
+            {
+                var result = await _clientsService.GetAllClients();
+                if (result == null)
+                {
+                    Log.Warning($"ClientsController: The clients aren't exist!");
+                    return NotFound();
+
+                }
+                Log.Information($"ClientsController: The action GetAllClients() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"ClientsController: The action GetAllClients() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("get-client-by-id/{id}")]

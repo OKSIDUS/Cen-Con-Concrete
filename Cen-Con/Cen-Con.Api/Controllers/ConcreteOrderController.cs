@@ -1,5 +1,6 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.BAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -14,6 +15,28 @@ namespace Cen_Con.Api.Controllers
         public ConcreteOrderController(IConcreteOrderService orderService)
         {
             _orderService = orderService;
+        }
+
+        [HttpGet("get-customers")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            try
+            {
+                var result = await _orderService.GetAllOrders();
+                if (result == null)
+                {
+                    Log.Warning($"ConcreteOrderController: The customers aren't exist!");
+                    return NotFound();
+
+                }
+                Log.Information($"ConcreteOrderController: The action GetAllOrders() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"ConcreteOrderController: The action GetAllOrders() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("get-concrete-order-by-id/{id}")]
@@ -32,7 +55,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"ClientController: The client get by id process has finished with error {ex.Message}");
+                Log.Error($"ClientController: The client get by id process has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

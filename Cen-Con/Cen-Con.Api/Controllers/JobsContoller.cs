@@ -1,5 +1,6 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.BAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -54,7 +55,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobsController: The action GetById() has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action GetById() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

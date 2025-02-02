@@ -1,5 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 
 namespace Cen_Con.BAL.Services
@@ -11,6 +12,21 @@ namespace Cen_Con.BAL.Services
         public ConcreteSupplierService(IConcreteSuppliersRepository concreteSuppliersRepository)
         {
             _concreteSuppliersRepository = concreteSuppliersRepository;
+        }
+
+        public async Task<List<ConcreteSuppliersDto>> GetAllSuppliers()
+        {
+            var suppliers = await _concreteSuppliersRepository.GetAllSuppliers();
+            if (suppliers is not null)
+            {
+                return suppliers.Select(o => new ConcreteSuppliersDto
+                {
+                    Id = o.Id,
+                    SupplierName = o.SupplierName,
+                    ContactInfo = o.ContactInfo
+                }).ToList();
+            }
+            return null;
         }
 
         public async Task<bool> CreateConcreteSupplier(ConcreteSuppliersCreateDto supplier)

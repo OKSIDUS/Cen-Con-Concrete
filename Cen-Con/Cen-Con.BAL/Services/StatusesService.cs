@@ -1,5 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 
 namespace Cen_Con.BAL.Services
@@ -10,6 +11,20 @@ namespace Cen_Con.BAL.Services
         public StatusesService(IStatusesRepository statusesRepository)
         {
             _statusesRepository = statusesRepository;
+        }
+
+        public async Task<List<StatusesDto>> GetAllStatuses()
+        {
+            var statuses = await _statusesRepository.GetAllStatuses();
+            if (statuses is not null)
+            {
+                return statuses.Select(o => new StatusesDto
+                {
+                    Id = o.Id,
+                    StatusName = o.StatusName
+                }).ToList();
+            }
+            return null;
         }
 
         public async Task<bool> CreateStatus(StatusesCreateDto status)

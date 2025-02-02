@@ -2,6 +2,7 @@
 using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -13,6 +14,25 @@ namespace Cen_Con.DAL.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task<List<Finishes>> GetAllFinishes()
+        {
+            try
+            {
+                var finishes = await _dbContext.Finishes.ToListAsync();
+                if (finishes is null)
+                {
+                    Log.Warning($"No finishes were found!");
+                }
+                return finishes;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The action GetAllFinishes() has finished with error: {ex.Message}!");
+                return null;
+            }
+        } 
+
         public async Task<bool> CreateFinish(Finishes finish)
         {
             try

@@ -2,6 +2,7 @@
 using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -13,6 +14,24 @@ namespace Cen_Con.DAL.Repositories
         public JobTypesRepository(CenConDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<List<JobType>> GetAllJobTypes()
+        {
+            try
+            {
+                var jobTypes = await _dbContext.JobTypes.ToListAsync();
+                if (jobTypes is null)
+                {
+                    Log.Warning($"No job types were found!");
+                }
+                return jobTypes;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The action GetAllJobTypes() has finished with error: {ex.Message}!");
+                return null;
+            }
         }
 
         public async Task<bool> CreateJobType(JobType jobType)

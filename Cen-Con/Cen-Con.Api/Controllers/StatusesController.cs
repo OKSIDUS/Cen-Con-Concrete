@@ -1,5 +1,6 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.BAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -14,6 +15,28 @@ namespace Cen_Con.Api.Controllers
         public StatusesController(IStatusesService statusesService)
         {
             _statusesService = statusesService;
+        }
+
+        [HttpGet("get-statuses")]
+        public async Task<IActionResult> GetAllStatuses()
+        {
+            try
+            {
+                var result = await _statusesService.GetAllStatuses();
+                if (result == null)
+                {
+                    Log.Warning($"StatusesController: The statuses aren't exist!");
+                    return NotFound();
+
+                }
+                Log.Information($"StatusesController: The action GetAllStatuses() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"StatusesController: The action GetAllStatuses() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("get-status-by-id/{id}")]
@@ -32,7 +55,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"StatusesController: The status get by id process has finished with error {ex.Message}");
+                Log.Error($"StatusesController: The status get by id process has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

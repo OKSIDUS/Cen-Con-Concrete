@@ -14,6 +14,20 @@ namespace Cen_Con.BAL.Services
             _concreteOrderRepository = concreteOrderRepository;
         }
 
+        public async Task<List<ConcreteOrderDto>> GetAllOrders()
+        {
+            var orders = await _concreteOrderRepository.GetAllOrder();
+            if (orders is not null)
+            {
+                return orders.Select(o => new ConcreteOrderDto
+                {
+                    Id = o.Id,
+                    OrderedBy = o.OrderedBy
+                }).ToList();
+            }
+            return null;
+        }
+
         public async Task<bool> Create(string orderedBy)
         {
             if (orderedBy is not null)

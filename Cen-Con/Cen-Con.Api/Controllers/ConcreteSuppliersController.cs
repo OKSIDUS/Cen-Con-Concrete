@@ -16,6 +16,28 @@ namespace Cen_Con.Api.Controllers
             _concreteSupplierService = concreteSuppliersService;
         }
 
+        [HttpGet("get-suppliers")]
+        public async Task<IActionResult> GetAllSuppliers()
+        {
+            try
+            {
+                var result = await _concreteSupplierService.GetAllSuppliers();
+                if (result == null)
+                {
+                    Log.Warning($"ConcreteSuppliersController: The suppliers aren't exist!");
+                    return NotFound();
+
+                }
+                Log.Information($"ConcreteSuppliersController: The action GetAllSuppliers() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug($"ConcreteSuppliersController: The action GetAllSuppliers() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("get-supplier-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,7 +54,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"ConcreteSupplierController: The concrete supplier get by id process has finished with error {ex.Message}");
+                Log.Error($"ConcreteSupplierController: The concrete supplier get by id process has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

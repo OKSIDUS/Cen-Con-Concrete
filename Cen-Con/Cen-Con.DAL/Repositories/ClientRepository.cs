@@ -1,6 +1,7 @@
 ﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -11,6 +12,24 @@ namespace Cen_Con.DAL.Repositories
         public ClientRepository(CenConDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<List<Clients>> GetAllClients()
+        {
+            try
+            {
+                var clients = await _dbContext.Clients.ToListAsync();
+                if (clients is null)
+                {
+                    Log.Warning($"No clients were found!");
+                }
+                return clients;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The action GetAllClients() has finished with error: {ex.Message}!");
+                return null;
+            }
         }
 
         public async Task<Clients?> GetById(int id)
@@ -87,9 +106,10 @@ namespace Cen_Con.DAL.Repositories
                 }
 
                 Log.Warning($"The client information wasn't update cause of missing information");
-                return false ;
+                return false;
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 Log.Error($"The client update process has finished with error: {ex.Message}!");
                 return false;
             }
