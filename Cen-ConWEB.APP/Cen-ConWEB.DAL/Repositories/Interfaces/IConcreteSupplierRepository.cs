@@ -1,7 +1,10 @@
-﻿namespace Cen_ConWEB.DAL.Repositories.Interfaces
+﻿using Cen_ConWEB.DAL.DataContext.Entity;
+
+namespace Cen_ConWEB.DAL.Repositories.Interfaces
 {
     public interface IConcreteSupplierRepository
     {
-        Task<string> GetConcreteSupplierNameByIdAsync(int id);
+        Task<List<ConcreteSupplier>> GetAll();
+        Task<ConcreteSupplier> GetById(int id);
     }
 }

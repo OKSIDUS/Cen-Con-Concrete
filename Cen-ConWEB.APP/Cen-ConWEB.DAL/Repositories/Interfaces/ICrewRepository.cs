@@ -1,7 +1,10 @@
-﻿namespace Cen_ConWEB.DAL.Repositories.Interfaces
+﻿using Cen_ConWEB.DAL.DataContext.Entity;
+
+namespace Cen_ConWEB.DAL.Repositories.Interfaces
 {
     public interface ICrewRepository
     {
-        Task<string> GetCrewNameByIdAsync(int crewId);
+        Task<List<Crew>> GetAll();
+        Task<Crew> GetById(int crewId);
     }
 }

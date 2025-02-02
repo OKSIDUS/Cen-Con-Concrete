@@ -1,7 +1,7 @@
 ﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
-using System.Net.Http;
-using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
 {
@@ -9,31 +9,23 @@ namespace Cen_ConWEB.DAL.Repositories
     {
         private readonly HttpClient _httpClient;
 
-        public JobTypeRepository (HttpClient httpClient)
+        public JobTypeRepository(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<string> GetJobTypeByIdAsync(int id)
+        public async Task<List<JobType>> GetAll()
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/get-supplier-by-id/{id}");
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var supplier = JsonSerializer.Deserialize<ConcreteSupplier>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var response = await _httpClient.GetFromJsonAsync<List<JobType>>("api/get-job-types");
+            return response ?? new List<JobType>();
+        }
 
-                return supplier?.SupplierName ?? "Unknown";
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Can't get crew name {ex.Message} inner: {ex.InnerException}");
-                return string.Empty;
-            }
+        public async Task<JobType> GetById(int id)
+        {
+            var response = await _httpClient.GetFromJsonAsync<JobType>($"api/get-supplier-by-id/{id}");
+            return response ?? new JobType();
         }
     }
 }

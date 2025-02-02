@@ -1,8 +1,7 @@
-﻿
-using Cen_ConWEB.DAL.DataContext.Entity;
+﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
-using System.Net.Http;
-using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
 {
@@ -10,31 +9,22 @@ namespace Cen_ConWEB.DAL.Repositories
     {
         private readonly HttpClient _httpClient;
 
-        public ClientRepository(HttpClient httpClient)
+        public ClientRepository(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<string> GetClientNameById(int id)
+        public async Task<List<Client>> GetAll()
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/get-client-by-id/{id}");
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var client = JsonSerializer.Deserialize<Client>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var response = await _httpClient.GetFromJsonAsync<List<Client>>("api/get-clients");
+            return response ?? new List<Client>();
+        }
 
-                return client?.FirstName + client?.LastName ?? "Unknown";
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Can't get client's name {ex.Message} inner: {ex.InnerException}");
-                return string.Empty;
-            }
+        public async Task<Client> GetById(int id)
+        {
+            var response = await _httpClient.GetFromJsonAsync<Client>($"api/get-client-by-id/{id}");
+            return response ?? new Client();
         }
     }
 }

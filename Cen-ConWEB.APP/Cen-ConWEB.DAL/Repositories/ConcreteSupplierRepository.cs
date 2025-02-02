@@ -1,6 +1,7 @@
 ﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
-using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
 {
@@ -8,31 +9,22 @@ namespace Cen_ConWEB.DAL.Repositories
     {
         private readonly HttpClient _httpClient;
 
-        public ConcreteSupplierRepository(HttpClient httpClient)
+        public ConcreteSupplierRepository(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<string> GetConcreteSupplierNameByIdAsync(int id)
+        public async Task<List<ConcreteSupplier>> GetAll()
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/get-supplier-by-id/{id}");
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var supplier = JsonSerializer.Deserialize<ConcreteSupplier>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var response = await _httpClient.GetFromJsonAsync<List<ConcreteSupplier>>("api/get-suppliers");
+            return response ?? new List<ConcreteSupplier>();
+        }
 
-                return supplier?.SupplierName ?? "Unknown";
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Can't get crew name {ex.Message} inner: {ex.InnerException}");
-                return string.Empty;
-            }
+        public async Task<ConcreteSupplier> GetById(int id)
+        {
+            var response = await _httpClient.GetFromJsonAsync<ConcreteSupplier>($"api/get-supplier-by-id/{id}");
+            return response ?? new ConcreteSupplier();
         }
     }
 }

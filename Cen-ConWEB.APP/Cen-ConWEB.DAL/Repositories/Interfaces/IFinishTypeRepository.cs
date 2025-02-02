@@ -1,7 +1,10 @@
-﻿namespace Cen_ConWEB.DAL.Repositories.Interfaces
+﻿using Cen_ConWEB.DAL.DataContext.Entity;
+
+namespace Cen_ConWEB.DAL.Repositories.Interfaces
 {
     public interface IFinishTypeRepository
     {
-        Task<string> GetFinishTypeNameById(int id); 
+        Task<List<FinishType>> GetAll();
+        Task<FinishType> GetById(int id); 
     }
 }

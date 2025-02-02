@@ -1,6 +1,7 @@
 ﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
-using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
 {
@@ -8,31 +9,22 @@ namespace Cen_ConWEB.DAL.Repositories
     {
         private readonly HttpClient _httpClient;
 
-        public ConcreteCustomerRepository(HttpClient httpClient)
+        public ConcreteCustomerRepository(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<string> GetConcreteCustomerById(int id)
+        public async Task<List<ConcreteCustomer>> GetAll()
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/get-concrete-order-by-id/{id}");
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var customer = JsonSerializer.Deserialize<ConcreteCustomer>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var response = await _httpClient.GetFromJsonAsync<List<ConcreteCustomer>>("api/get-customers");
+            return response ?? new List<ConcreteCustomer>();
+        }
 
-                return customer?.OrderedBy ?? "Unknown";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Can't get concrete customer {ex.Message} inner: {ex.InnerException}");
-                return string.Empty;
-            }
-
+        public async Task<ConcreteCustomer> GetById(int id)
+        {
+            var response = await _httpClient.GetFromJsonAsync<ConcreteCustomer>($"api/get-concrete-order-by-id/{id}");
+            return response ?? new ConcreteCustomer();
         }
     }
 }

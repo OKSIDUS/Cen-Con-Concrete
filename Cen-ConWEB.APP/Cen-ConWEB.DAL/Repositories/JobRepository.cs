@@ -15,7 +15,7 @@ namespace Cen_ConWEB.DAL.Repositories
             _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<List<Job>> GetAllJobsAsync()
+        public async Task<List<Job>> GetAll()
         {
             var response = await _httpClient.GetFromJsonAsync<List<Job>>("api/get-jobs");
             return response ?? new List<Job>();

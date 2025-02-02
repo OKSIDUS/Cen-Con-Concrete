@@ -9,17 +9,18 @@ namespace Cen_ConWEB.BAL.Services
     public class JobService : IJobService
     {
         private readonly IJobRepository _jobRepository;
-        public JobService(IJobRepository jobRepository, ICrewRepository crewRepository, IConcreteCustomerRepository concreteCustomerRepository, IClientRepository clientRepository, IConcreteSupplierRepository concreteSupplierRepository, IFinishTypeRepository finishTypeRepository)
+
+        public JobService(IJobRepository jobRepository)
         {
             _jobRepository = jobRepository;
         }
 
-        public async Task<List<JobDto>> GetAllJobsAsync()
+        public async Task<List<JobDto>> GetAll()
         {
             try
             {
-                Log.Information("JobsService: GetAllJobsAsync() started!");
-                var jobs = await _jobRepository.GetAllJobsAsync();
+                Log.Information("JobsService: GetAll() started!");
+                var jobs = await _jobRepository.GetAll();
                 if (jobs is not null)
                 {
                     var jobList = new List<JobDto>();
@@ -46,12 +47,12 @@ namespace Cen_ConWEB.BAL.Services
                     Log.Information("The jobs details information has been recived!");
                     return jobList;
                 }
-                Log.Warning($"The action GetAllJobsAsync() can not be completed because of missing information!");
+                Log.Warning($"The action GetAll() can not be completed because of missing information!");
                 return null;
             }
             catch (Exception ex)
             {
-                Log.Error($"The action GetAllJobsAsync() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
+                Log.Error($"The action GetAll() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
                 return null;
             }
         }
@@ -60,7 +61,7 @@ namespace Cen_ConWEB.BAL.Services
         {
             try
             {
-                Log.Information("JobsService: GetDetailsById() started!");
+                Log.Information("JobsService: GetById() started!");
                 if (id > 0)
                 {
                     var result = await _jobRepository.GetById(id);
@@ -133,5 +134,34 @@ namespace Cen_ConWEB.BAL.Services
                 return false;
             }
         }
+
+        //public async Task<JobCreateDto> GetCreateDtoModel()
+        //{
+        //    try
+        //    {
+        //        Log.Information("JobsService: GetCreateDtoModel() started!");
+        //        var clients = await _clientService.GetAllClients();
+        //        var customers = await _concreteCustomerService.GetAll();
+        //        var suppliers = await _concreteSupplierService.GetAll();
+        //        var finishes = await _finishService.GetAll();
+        //        var jobTypes = new List<JobTypeDto>();
+        //        var crews = new List<CrewDto>();
+
+        //        var jobCreateDto = new JobCreateDto
+        //        {
+        //            Clients = clients,
+        //            Customers = customers,
+        //            Suppliers = suppliers,
+        //            Finishes = finishes,
+        //            JobTypes = jobTypes,
+        //            Crews = crews
+        //        };
+        //        return jobCreateDto;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new JobCreateDto();
+        //    }
+        //}
     }
 }

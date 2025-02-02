@@ -1,7 +1,7 @@
 ﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
-using System.Net.Http;
-using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
 {
@@ -9,31 +9,22 @@ namespace Cen_ConWEB.DAL.Repositories
     {
         private readonly HttpClient _httpClient;
 
-        public FinishTypeRepository(HttpClient httpClient)
+        public FinishTypeRepository(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<string> GetFinishTypeNameById(int id)
+        public async Task<List<FinishType>> GetAll()
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/get-finish-by-id/{id}");
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var crew = JsonSerializer.Deserialize<FinishType>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var response = await _httpClient.GetFromJsonAsync<List<FinishType>>("api/get-finishes");
+            return response ?? new List<FinishType>();
+        }
 
-                return crew?.FinishName ?? "Unknown";
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Can't get crew name {ex.Message} inner: {ex.InnerException}");
-                return string.Empty;
-            }
+        public async Task<FinishType> GetById(int id)
+        {
+            var response = await _httpClient.GetFromJsonAsync<FinishType>($"api/get-finish-by-id/{id}");
+            return response ?? new FinishType();
         }
     }
 }

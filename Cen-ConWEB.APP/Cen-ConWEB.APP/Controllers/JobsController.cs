@@ -1,24 +1,37 @@
 ﻿using Cen_ConWEB.BAL.Dtos.Types;
 using Cen_ConWEB.BAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 
 namespace Cen_ConWEB.APP.Controllers
 {
     public class JobsController : Controller
     {
         private readonly IJobService _jobService;
+        private readonly IClientService _clientService;
+        private readonly IConcreteCustomerService _concreteCustomerService;
+        private readonly IConcreteSupplierService _concreteSupplierService;
+        private readonly IFinishService _finishService;
+        private readonly ICrewService _crewService;
+        private readonly IJobTypeService _jobTypeService;
 
-        public JobsController(IJobService jobService)
+        public JobsController(IJobService jobService, IClientService clientService, 
+            IConcreteCustomerService concreteCustomerService, IConcreteSupplierService concreteSupplierService, 
+            IFinishService finishService, ICrewService crewService, IJobTypeService jobTypeService)
         {
             _jobService = jobService;
+            _clientService = clientService;
+            _concreteCustomerService = concreteCustomerService;
+            _concreteSupplierService = concreteSupplierService;
+            _finishService = finishService;
+            _crewService = crewService;
+            _jobTypeService = jobTypeService;
         }
 
         [HttpGet]
         [Route("{controller}/get-jobs")]
         public async Task<IActionResult> Index()
         {
-            var jobs = await _jobService.GetAllJobsAsync();
+            var jobs = await _jobService.GetAll();
             return base.View("Index", (object)jobs);
         }
 
@@ -26,22 +39,31 @@ namespace Cen_ConWEB.APP.Controllers
         [Route("{controller}/get/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            try
-            {
-                var job = await _jobService.GetById(id);
-                return base.View("GetById", (object)job);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var job = await _jobService.GetById(id);
+            return base.View("GetById", (object)job);
         }
 
         [HttpGet]
         [Route("{controller}/create-job")]
         public async Task<IActionResult> Create()
         {
-            return View();
+            var clients = await _clientService.GetAll();
+            var customers = await _concreteCustomerService.GetAll();
+            var suppliers = await _concreteSupplierService.GetAll();
+            var finishes = await _finishService.GetAll();
+            var jobTypes = await _jobTypeService.GetAll();
+            var crews = await _crewService.GetAll();
+
+            var jobCreateDto = new JobCreateOptionsDto
+            {
+                Clients = clients,
+                Customers = customers,
+                Suppliers = suppliers,
+                Finishes = finishes,
+                JobTypes = jobTypes,
+                Crews = crews
+            };
+            return View(jobCreateDto);
         }
 
         [HttpPost]
@@ -50,18 +72,10 @@ namespace Cen_ConWEB.APP.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var result = await _jobService.CreateJob(job);
-                    Log.Information(result.ToString(), job.ToString());
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                var result = await _jobService.CreateJob(job);
+                return RedirectToAction("Index");
             }
-            return View("CreateJob", job);
+            return View("Create", job);
         }
     }
 }

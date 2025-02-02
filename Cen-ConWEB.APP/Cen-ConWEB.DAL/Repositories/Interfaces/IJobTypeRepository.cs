@@ -1,7 +1,10 @@
-﻿namespace Cen_ConWEB.DAL.Repositories.Interfaces
+﻿using Cen_ConWEB.DAL.DataContext.Entity;
+
+namespace Cen_ConWEB.DAL.Repositories.Interfaces
 {
     public interface IJobTypeRepository
     {
-        Task<string> GetJobTypeByIdAsync(int id);
+        Task<List<JobType>> GetAll();
+        Task<JobType> GetById(int id);
     }
 }

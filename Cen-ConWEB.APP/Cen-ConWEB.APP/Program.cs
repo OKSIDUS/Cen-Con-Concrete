@@ -20,6 +20,12 @@ builder.Services.AddHttpClient<IJobTypeRepository, JobTypeRepository>();
 
 //BAL
 builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IConcreteCustomerService, ConcreteCustomerService>();
+builder.Services.AddScoped<IConcreteSupplierService, ConcreteSupplierService>();
+builder.Services.AddScoped<IFinishService, FinishService>();
+builder.Services.AddScoped<ICrewService, CrewService>();
+builder.Services.AddScoped<IJobTypeService, JobTypeService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -1,37 +1,29 @@
 ﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
-using System.Text.Json;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
 {
     public class CrewRepoitory : ICrewRepository
     {
         private readonly HttpClient _httpClient;
-        public CrewRepoitory(HttpClient httpClient)
+        public CrewRepoitory(HttpClient httpClient, IOptions<ApiSettings> apiSettings)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(apiSettings.Value.BaseUrl);
         }
 
-        public async Task<string> GetCrewNameByIdAsync(int crewId)
+        public async Task<List<Crew>> GetAll()
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/get-crew-by-id/{crewId}");
-                response.EnsureSuccessStatusCode();
-                var json = await response.Content.ReadAsStringAsync();
-                var crew = JsonSerializer.Deserialize<Crew>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+            var response = await _httpClient.GetFromJsonAsync<List<Crew>>("api/get-crews");
+            return response ?? new List<Crew>();
+        }
 
-                return crew?.CrewName ?? "Unknown";
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Can't get crew name {ex.Message} inner: {ex.InnerException}");
-                return string.Empty;
-            }
+        public async Task<Crew> GetById(int crewId)
+        {
+            var response = await _httpClient.GetFromJsonAsync<Crew>($"api/get-crew-by-id/{crewId}");
+            return response ?? new Crew();
         }
     }
 }

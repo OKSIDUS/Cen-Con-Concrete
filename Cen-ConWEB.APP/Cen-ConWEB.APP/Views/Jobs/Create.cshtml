@@ -1,9 +1,15 @@
-﻿<form method="post" action="/Jobs/create-job-post">
+﻿@using Cen_ConWEB.BAL.Dtos.Types
+@model JobCreateOptionsDto
+
+<form method="post" action="/Jobs/create-job-post">
     <div>
         <label for="ClientId">Client:</label>
         <select id="ClientId" name="ClientId" required>
-            <option value="7">adwwadaw 	awdawdaw</option>
-            <option value="8" selected>Andrii Chemnyi</option>
+            @foreach (var client in Model.Clients)
+            {
+                <option value="@client.Id">@client.FirstName @client.LastName</option>
+            }
+
         </select>
     </div>
     <div>
@@ -21,16 +27,19 @@
     <div>
         <label for="OrderBy">Order By:</label>
         <select id="OrderBy" name="OrderBy" required>
-            <option value="1">Order by Client</option>
-            <option value="2">Order by Cen-Con Company</option>
-            <option value="3">Order by wadawdaw</option>
+            @foreach (var customer in Model.Customers)
+            {
+                <option value="@customer.Id">@customer.OrderedBy</option>
+            }
         </select>
     </div>
     <div>
         <label for="ConcreteSupplierId">Concrete Supplier:</label>
         <select id="ConcreteSupplierId" name="ConcreteSupplierId" required>
-            <option value="3" selected>	Lafarge</option>
-            <option value="4">wqfqfqw</option>
+            @foreach (var supplier in Model.Suppliers)
+            {
+                <option value="@supplier.Id">@supplier.SupplierName</option>
+            }
         </select>
     </div>
     <div>
@@ -40,20 +49,25 @@
     <div>
         <label for="FinishTypeId">Finish Type:</label>
         <select id="FinishTypeId" name="FinishTypeId" required>
-            <option value="2">Polished</option>
+            @foreach (var finish in Model.Finishes)
+            {
+                <option value="@finish.Id">@finish.FinishName</option>
+            }
         </select>
     </div>
     <div>
         <label for="JobType">Job Type:</label>
         <select id="JobType" name="JobType" required>
-            <option value="1">Commertial</option>
-            <option value="2" selected>Residential</option>
+            @foreach (var jobType in Model.JobTypes)
+            {
+                <option value="@jobType.Id">@jobType.TypeName</option>
+            }
         </select>
     </div>
     <div>
         <label for="StatusId">Status:</label>
-        <select id="StatusId" name="StatusId" required>
-            <option value="1">Waiting</option>
+        <select id="StatusId" name="StatusId" required disabled>
+            <option value="1" selected>Waiting</option>
         </select>
     </div>
     <div>
@@ -67,9 +81,10 @@
     <div>
         <label for="CrewId">Crew:</label>
         <select id="CrewId" name="CrewId" required>
-            <option value="4">CenConResCrew</option>
-            <option value="5" selected>CommCrew</option>
-            <option value="6">string</option>
+            @foreach (var crew in Model.Crews)
+            {
+                <option value="@crew.Id">@crew.CrewName</option>
+            }
         </select>
     </div>
     <button type="submit">Submit</button>

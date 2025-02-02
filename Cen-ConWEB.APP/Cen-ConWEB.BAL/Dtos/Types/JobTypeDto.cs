@@ -1,6 +1,6 @@
-﻿namespace Cen_ConWEB.DAL.DataContext.Entity
+﻿namespace Cen_ConWEB.BAL.Dtos.Types
 {
-    public class JobType
+    public class JobTypeDto
     {
         public int Id { get; set; }
         public string TypeName { get; set; }
