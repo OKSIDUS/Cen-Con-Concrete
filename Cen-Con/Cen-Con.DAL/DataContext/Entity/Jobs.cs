@@ -52,7 +52,6 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Required]
         public DateTime CreatedAt { get; set; }
         [Column("UpdatedAt")]
-        [Required]
         public DateTime UpdatedAt { get; set; }
         [Column("CrewId")]
         [Required]

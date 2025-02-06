@@ -16,6 +16,18 @@ namespace Cen_Con.Api.Controllers
         {
             _clientsService = clientsService;
         }
+        [HttpGet("get-last-client")]
+        public async Task<IActionResult> GetLastClient()
+        {
+            var result = await _clientsService.GetLastClient();
+            if (result == null)
+            {
+                Log.Warning($"ClientsController: The clients aren't exist!");
+                return NotFound();
+            }
+            Log.Information($"ClientsController: The action GetAllClients() has finished with result: {result}");
+            return Ok(result);
+        }
 
         [HttpGet("get-clients")]
         public async Task<IActionResult> GetAllClients()

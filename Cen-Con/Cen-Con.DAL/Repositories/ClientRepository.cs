@@ -32,6 +32,25 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
+        public async Task<int> GetLastClient()
+        {
+            try
+            {
+                var client = await _dbContext.Clients.OrderBy(i => i.Id).LastAsync();
+                if (client is null)
+                {
+                    Log.Error($"No clients were found!");
+                    throw new Exception($"No clients were found!");
+                }
+                return client.Id;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The clients get by id process has finished with error: {ex.Message} {ex.InnerException}!");
+                throw ex;
+            }
+        }
+
         public async Task<Clients?> GetById(int id)
         {
             try

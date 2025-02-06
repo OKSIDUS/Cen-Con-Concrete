@@ -31,7 +31,6 @@ namespace Cen_Con.BAL.Services
                     SquareFeet = job.SquareFeet,
                     StatusId = job.StatusId,
                     CreatedAt = job.CreatedAt,
-                    UpdatedAt = job.UpdatedAt,
                     CrewId = job.CrewId
                 });
                 return result;

@@ -32,6 +32,11 @@ namespace Cen_Con.BAL.Services
             return null;
         }
 
+        public async Task<int> GetLastClient()
+        {
+            return await _clientsRepository.GetLastClient();
+        }
+
         public async Task<bool> CreateClient(ClientsCreateDto client)
         {
             if (client is not null)
