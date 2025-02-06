@@ -33,7 +33,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"CrewsContoller: The action GetAllCrews() has finished with error {ex.Message}");
+                Log.Error($"CrewsContoller: The action GetAllCrews() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

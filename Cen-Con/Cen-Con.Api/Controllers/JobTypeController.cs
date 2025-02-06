@@ -34,7 +34,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobTypeContoller: The action GetAllJobTypes() has finished with error {ex.Message}");
+                Log.Error($"JobTypeContoller: The action GetAllJobTypes() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

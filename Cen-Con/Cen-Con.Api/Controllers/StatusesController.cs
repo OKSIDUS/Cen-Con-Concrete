@@ -34,7 +34,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"StatusesController: The action GetAllStatuses() has finished with error {ex.Message}");
+                Log.Error($"StatusesController: The action GetAllStatuses() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

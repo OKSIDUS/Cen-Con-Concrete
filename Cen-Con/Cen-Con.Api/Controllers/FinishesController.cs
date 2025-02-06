@@ -33,7 +33,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"FinishesController: The action GetAllFinishes() has finished with error {ex.Message}");
+                Log.Error($"FinishesController: The action GetAllFinishes() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

@@ -34,7 +34,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobsController: The action GetAllJobs() has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action GetAllJobs() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -71,7 +71,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobsController: The action CreateJob() has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action CreateJob() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -87,7 +87,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobsController: The action DeleteJobById() has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action DeleteJobById() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -103,7 +103,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobsController: The action UpdateJob() has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action UpdateJob() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

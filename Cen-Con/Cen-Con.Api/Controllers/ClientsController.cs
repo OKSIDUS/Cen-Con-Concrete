@@ -46,7 +46,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"ClientsController: The action GetAllClients() has finished with error {ex.Message}");
+                Log.Error($"ClientsController: The action GetAllClients() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -67,7 +67,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"ClientController: The client get by id process has finished with error {ex.Message}");
+                Log.Error($"ClientController: The client get by id process has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

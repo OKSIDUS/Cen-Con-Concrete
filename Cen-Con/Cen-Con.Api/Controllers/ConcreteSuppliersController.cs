@@ -33,7 +33,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"ConcreteSuppliersController: The action GetAllSuppliers() has finished with error {ex.Message}");
+                Log.Error($"ConcreteSuppliersController: The action GetAllSuppliers() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
