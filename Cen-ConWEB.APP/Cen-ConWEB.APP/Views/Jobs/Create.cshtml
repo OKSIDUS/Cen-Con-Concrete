@@ -2,14 +2,10 @@
 @model JobCreateOptionsDto
 
 <form method="post" action="/Jobs/create-job-post">
-    <div>
+    <div hidden>
         <label for="ClientId">Client:</label>
         <select id="ClientId" name="ClientId" required>
-            @foreach (var client in Model.Clients)
-            {
-                <option value="@client.Id">@client.FirstName @client.LastName</option>
-            }
-
+            <option value="@Model.ClientId"></option>
         </select>
     </div>
     <div>
@@ -63,20 +59,6 @@
                 <option value="@jobType.Id">@jobType.TypeName</option>
             }
         </select>
-    </div>
-    <div>
-        <label for="StatusId">Status:</label>
-        <select id="StatusId" name="StatusId" required disabled>
-            <option value="1" selected>Waiting</option>
-        </select>
-    </div>
-    <div>
-        <label for="CreatedAt">Created At:</label>
-        <input type="datetime-local" id="CreatedAt" name="CreatedAt" required />
-    </div>
-    <div>
-        <label for="UpdatedAt">Updated At:</label>
-        <input type="datetime-local" id="UpdatedAt" name="UpdatedAt" required />
     </div>
     <div>
         <label for="CrewId">Crew:</label>

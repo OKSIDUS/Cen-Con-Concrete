@@ -1,5 +1,6 @@
 ﻿using Cen_ConWEB.BAL.Dtos.Types;
 using Cen_ConWEB.BAL.Interfaces;
+using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
 using Serilog;
 
@@ -13,6 +14,27 @@ namespace Cen_ConWEB.BAL.Services
         public ClientService(IClientRepository clientRepository)
         {
             _clientRepository = clientRepository;
+        }
+
+        public async Task<int> GetLastClient()
+        {
+            return await _clientRepository.GetLastClient();
+        }
+
+        public async Task<bool> Create(CreateClientDto client)
+        {
+            if (client is not null)
+            {
+                var result = await _clientRepository.Create(new Client
+                {
+                    FirstName = client.FirstName,
+                    LastName = client.LastName, 
+                    PhoneNumber = client.PhoneNumber,
+                    Email = client.Email,
+                });
+                return result;
+            }
+            return false;
         }
 
         public async Task<List<ClientDto>> GetAll()

@@ -44,8 +44,8 @@ namespace Cen_ConWEB.APP.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/create-job")]
-        public async Task<IActionResult> Create()
+        [Route("{controller}/create-job/clientId={id}")]
+        public async Task<IActionResult> Create(int id)
         {
             var clients = await _clientService.GetAll();
             var customers = await _concreteCustomerService.GetAll();
@@ -56,6 +56,7 @@ namespace Cen_ConWEB.APP.Controllers
 
             var jobCreateDto = new JobCreateOptionsDto
             {
+                ClientId = id,
                 Clients = clients,
                 Customers = customers,
                 Suppliers = suppliers,
@@ -70,6 +71,11 @@ namespace Cen_ConWEB.APP.Controllers
         [Route("{controller}/create-job-post")]
         public async Task<IActionResult> CreateJob(JobCreateDto job)
         {
+            job.StatusId = 1;
+            job.CreatedAt = DateTime.UtcNow;
+            job.UpdatedAt = DateTime.UtcNow;
+
+
             if (ModelState.IsValid)
             {
                 var result = await _jobService.CreateJob(job);

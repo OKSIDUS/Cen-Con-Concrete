@@ -134,34 +134,5 @@ namespace Cen_ConWEB.BAL.Services
                 return false;
             }
         }
-
-        //public async Task<JobCreateDto> GetCreateDtoModel()
-        //{
-        //    try
-        //    {
-        //        Log.Information("JobsService: GetCreateDtoModel() started!");
-        //        var clients = await _clientService.GetAllClients();
-        //        var customers = await _concreteCustomerService.GetAll();
-        //        var suppliers = await _concreteSupplierService.GetAll();
-        //        var finishes = await _finishService.GetAll();
-        //        var jobTypes = new List<JobTypeDto>();
-        //        var crews = new List<CrewDto>();
-
-        //        var jobCreateDto = new JobCreateDto
-        //        {
-        //            Clients = clients,
-        //            Customers = customers,
-        //            Suppliers = suppliers,
-        //            Finishes = finishes,
-        //            JobTypes = jobTypes,
-        //            Crews = crews
-        //        };
-        //        return jobCreateDto;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new JobCreateDto();
-        //    }
-        //}
     }
 }

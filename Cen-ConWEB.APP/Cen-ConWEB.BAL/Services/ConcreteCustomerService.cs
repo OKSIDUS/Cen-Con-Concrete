@@ -24,7 +24,7 @@ namespace Cen_ConWEB.BAL.Services
                 if (customers is not null)
                 {
                     var customersList = new List<ConcreteOrderDto>();
-                    foreach (var customer in customersList)
+                    foreach (var customer in customers)
                     {
                         customersList.Add(new ConcreteOrderDto
                         {
