@@ -92,46 +92,5 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
-        public async Task<bool> DeleteClient(int id)
-        {
-            try
-            {
-                var client = await _dbContext.Clients.FindAsync(id);
-                if (client is not null)
-                {
-                    _dbContext.Clients.Remove(client);
-                    await _dbContext.SaveChangesAsync();
-                    return true;
-                }
-                Log.Warning($"The client with ID {id} wasn't found!");
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"The client delete process has finished with error: {ex.Message}!");
-                return false;
-            }
-        }
-
-        public async Task<bool> UpdateClient(Clients client)
-        {
-            try
-            {
-                if (client is not null)
-                {
-                    _dbContext.Clients.Update(client);
-                    await _dbContext.SaveChangesAsync();
-                    return true;
-                }
-
-                Log.Warning($"The client information wasn't update cause of missing information");
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"The client update process has finished with error: {ex.Message}!");
-                return false;
-            }
-        }
     }
 }

@@ -59,26 +59,5 @@ namespace Cen_Con.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("create-concrete-order")]
-        public async Task<IActionResult> CreateClient(string order)
-        {
-            var result = await _orderService.Create(order);
-            return Ok(result);
-        }
-
-        [HttpDelete("delete-concrete-order-by-id/{id}")]
-        public async Task<IActionResult> DeleteClientById(int id)
-        {
-            var result = await _orderService.Delete(id);
-            return Ok(result);
-        }
-
-        [HttpPost("update-concrete-order")]
-        public async Task<IActionResult> UpdateClient(ConcreteOrderDto order)
-        {
-            var result = await _orderService.Update(order);
-            return Ok(result);
-        }
     }
 }

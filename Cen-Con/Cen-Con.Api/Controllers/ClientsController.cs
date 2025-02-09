@@ -78,19 +78,5 @@ namespace Cen_Con.Api.Controllers
             var result = await _clientsService.CreateClient(client);
             return Ok(result);
         }
-
-        [HttpDelete("delete-client-by-id/{id}")]
-        public async Task<IActionResult> DeleteClientById(int id)
-        {
-            var result = await _clientsService.DeleteClient(id);
-            return Ok(result);
-        }
-
-        [HttpPost("update-client")]
-        public async Task<IActionResult> UpdateClient(ClientsDto client)
-        {
-            var result = await _clientsService.UpdateClient(client);
-            return Ok(result);
-        }
     }
 }

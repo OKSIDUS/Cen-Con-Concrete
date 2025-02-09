@@ -6,8 +6,5 @@ namespace Cen_Con.BAL.Interfaces
     {
         Task<List<ConcreteSuppliersDto>> GetAllSuppliers();
         Task<ConcreteSuppliersDto?> GetById(int id);
-        Task<bool> DeleteConcreteSupplier(int id);
-        Task<bool> CreateConcreteSupplier(ConcreteSuppliersCreateDto supplier);
-        Task<bool> UpdateConcreteSupplier(ConcreteSuppliersDto supplier);
     }
 }

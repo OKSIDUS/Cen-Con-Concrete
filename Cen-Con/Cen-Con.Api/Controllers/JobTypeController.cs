@@ -59,26 +59,5 @@ namespace Cen_Con.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("create-job-type")]
-        public async Task<IActionResult> CreateJobType(string jobType)
-        {
-            var result = await _jobTypeService.CreateJobType(jobType);
-            return Ok(result);
-        }
-
-        [HttpDelete("delete-job-type-by-id/{id}")]
-        public async Task<IActionResult> DeleteJobTypeById(int id)
-        {
-            var result = await _jobTypeService.DeleteJobType(id);
-            return Ok(result);
-        }
-
-        [HttpPost("update-job-type")]
-        public async Task<IActionResult> UpdateJobType(JobTypeDto job)
-        {
-            var result = await _jobTypeService.UpdateJobType(job);
-            return Ok(result);
-        }
     }
 }

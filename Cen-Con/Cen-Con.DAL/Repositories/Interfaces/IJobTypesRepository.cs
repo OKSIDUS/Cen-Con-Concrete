@@ -10,9 +10,6 @@ namespace Cen_Con.DAL.Repositories.Interfaces
     public interface IJobTypesRepository
     {
         Task<List<JobType>> GetAllJobTypes();
-        Task<bool> CreateJobType(JobType jobType);
-        Task<bool> DeleteJobType(int id);
         Task<JobType> GetById(int id);
-        Task<bool> UpdateJobType(JobType jobType);
     }
 }

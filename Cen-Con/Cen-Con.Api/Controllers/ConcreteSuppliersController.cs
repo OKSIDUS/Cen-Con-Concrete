@@ -58,26 +58,5 @@ namespace Cen_Con.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("create-concrete-supplier")]
-        public async Task<IActionResult> CreateConcreteSupplier(ConcreteSuppliersCreateDto supplier)
-        {
-            var result = await _concreteSupplierService.CreateConcreteSupplier(supplier);
-            return Ok(result);
-        }
-
-        [HttpDelete("delete-concrete-supplier-by-id/{id}")]
-        public async Task<IActionResult> DeleteConcreteSupplierById(int id)
-        {
-            var result = await _concreteSupplierService.DeleteConcreteSupplier(id);
-            return Ok(result);
-        }
-
-        [HttpPost("update-concrete-supplier")]
-        public async Task<IActionResult> UpdateConcreteSupplier(ConcreteSuppliersDto supplier)
-        {
-            var result = await _concreteSupplierService.UpdateConcreteSupplier(supplier);
-            return Ok(result);
-        }
     }
 }

@@ -6,8 +6,5 @@ namespace Cen_Con.DAL.Repositories.Interfaces
     {
         Task<List<ConcreteOrder>> GetAllOrder();
         Task<ConcreteOrder> GetById(int id);
-        Task<bool> DeleteConcreteOrder(int id);
-        Task<bool> CreateConcreteOrder(ConcreteOrder orderedBy);
-        Task<bool> UpdateConcreteOrder(ConcreteOrder orderedBy);
     }
 }
