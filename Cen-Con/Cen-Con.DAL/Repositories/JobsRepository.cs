@@ -1,5 +1,4 @@
-﻿
-using Cen_Con.DAL.DataContext;
+﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -62,18 +61,17 @@ namespace Cen_Con.DAL.Repositories
             try
             {
                 var jobs = await _dbContext.Jobs
-                    .Include(j => j.Client)
-                    .Include(j => j.Crew)
-                    .Include(j => j.ConcreteSupplier)
-                    .Include(j => j.FinishType)
-                    .Include(j => j.Status)
-                    .Include(j => j.JobType)
-                    .Include(j => j.OrderBy)
-                    .ToListAsync();
+                        .Include(j => j.Client)
+                        .Include(j => j.Crew)
+                        .Include(j => j.ConcreteSupplier)
+                        .Include(j => j.FinishType)
+                        .Include(j => j.Status)
+                        .Include(j => j.JobType)
+                        .Include(j => j.OrderBy)
+                        .ToListAsync();
                 if (jobs is null)
                 {
                     Log.Warning($"No jobs were found!");
-                    return null;
                 }
                 return jobs;
             }
@@ -88,7 +86,15 @@ namespace Cen_Con.DAL.Repositories
         {
             try
             {
-                var job = await _dbContext.Jobs.FindAsync(id);
+                var job = await _dbContext.Jobs
+                        .Include(j => j.Client)
+                        .Include(j => j.Crew)
+                        .Include(j => j.ConcreteSupplier)
+                        .Include(j => j.FinishType)
+                        .Include(j => j.Status)
+                        .Include(j => j.JobType)
+                        .Include(j => j.OrderBy)
+                        .FirstOrDefaultAsync(j => j.Id == id);
                 if (job is null)
                 {
                     Log.Warning($"The job with ID {id} wasn't found!");

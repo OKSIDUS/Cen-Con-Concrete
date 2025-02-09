@@ -1,5 +1,6 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.BAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -24,15 +25,16 @@ namespace Cen_Con.Api.Controllers
                 var result = await _jobsService.GetAllJobs();
                 if (result == null)
                 {
-                    Log.Warning($"The jobs aren't exist!");
+                    Log.Warning($"JobsController: The jobs aren't exist!");
                     return NotFound();
 
                 }
+                Log.Information($"JobsController: The action GetAllJobs() has finished with result: {result}");
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobshController: The job get all jobs process has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action GetAllJobs() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -45,15 +47,15 @@ namespace Cen_Con.Api.Controllers
                 var result = await _jobsService.GetById(id);
                 if (result == null)
                 {
-                    Log.Warning($"The job with ID {id} isn't exist!");
+                    Log.Warning($"JobsController: The job with ID {id} isn't exist!");
                     return NotFound();
                 }
-
+                Log.Information($"JobsController: The action GetById() has finished with result: {result}");
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Log.Debug($"JobshController: The job get by id process has finished with error {ex.Message}");
+                Log.Error($"JobsController: The action GetById() has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
@@ -61,22 +63,49 @@ namespace Cen_Con.Api.Controllers
         [HttpPost("create-job")]
         public async Task<IActionResult> CreateJob(JobsCreateDto job)
         {
-            var result = await _jobsService.CreateJob(job);
-            return Ok(result);
+            try
+            {
+                var result = await _jobsService.CreateJob(job);
+                Log.Information($"JobsController: The action CreateJob() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"JobsController: The action CreateJob() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("delete-job-by-id/{id}")]
         public async Task<IActionResult> DeleteJobById(int id)
         {
-            var result = await _jobsService.DeleteJob(id);
-            return Ok(result);
+            try
+            {
+                var result = await _jobsService.DeleteJob(id);
+                Log.Information($"JobsController: The action DeleteJobById() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"JobsController: The action DeleteJobById() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("update-job")]
-        public async Task<IActionResult> UpdateJob(JobsDto job)
+        public async Task<IActionResult> UpdateJob(JobUpdateDto job)
         {
-            var result = await _jobsService.UpdateJob(job);
-            return Ok(result);
+            try
+            {
+                var result = await _jobsService.UpdateJob(job);
+                Log.Information($"JobsController: The action UpdateJob() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"JobsController: The action UpdateJob() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

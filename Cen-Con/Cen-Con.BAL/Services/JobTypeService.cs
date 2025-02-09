@@ -2,6 +2,7 @@
 using Cen_Con.BAL.Interfaces;
 using Cen_Con.DAL.Repositories.Interfaces;
 using Cen_Con.DAL.DataContext.Entity;
+using Cen_Con.DAL.Repositories;
 
 namespace Cen_Con.BAL.Services
 {
@@ -14,27 +15,18 @@ namespace Cen_Con.BAL.Services
             _jobTypeRepository = jobTypeRepository;
         }
 
-        public async Task<bool> CreateJobType(string typeName)
+        public async Task<List<JobTypeDto>> GetAllJobTypes()
         {
-            if (typeName is not null)
+            var types = await _jobTypeRepository.GetAllJobTypes();
+            if (types is not null)
             {
-                var result = await _jobTypeRepository.CreateJobType(new JobType
+                return types.Select(o => new JobTypeDto
                 {
-                    Type = typeName
-                });
-                return result;
+                    Id = o.Id,
+                    TypeName = o.Type
+                }).ToList();
             }
-            return false;
-        }
-
-        public async Task<bool> DeleteJobType(int id)
-        {
-            if (id > 0)
-            {
-                var result = await _jobTypeRepository.DeleteJobType(id);
-                return result;
-            }
-            return false;
+            return null;
         }
 
         public async Task<JobTypeDto?> GetById(int id)
@@ -53,20 +45,6 @@ namespace Cen_Con.BAL.Services
                 return null;
             }
             return null;
-        }
-
-        public async Task<bool> UpdateJobType(JobTypeDto jobType)
-        {
-            if (jobType is not null)
-            {
-                var result = await _jobTypeRepository.UpdateJobType(new JobType
-                {
-                    Id = jobType.Id,
-                    Type = jobType.TypeName
-                });
-                return result;
-            }
-            return false;
         }
     }
 }

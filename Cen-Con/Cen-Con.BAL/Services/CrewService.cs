@@ -1,5 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 
 namespace Cen_Con.BAL.Services
@@ -11,6 +12,22 @@ namespace Cen_Con.BAL.Services
         public CrewService(ICrewsRepository crewsRepository)
         {
             _crewsRepository = crewsRepository;
+        }
+
+        public async Task<List<CrewsDto>> GetAllCrews()
+        {
+            var crews = await _crewsRepository.GetAllCrews();
+            if (crews is not null)
+            {
+                return crews.Select(o => new CrewsDto
+                {
+                    Id = o.Id,
+                    CrewName = o.CrewName,
+                    PricePerCubicMeter = o.PricePerCubicMeter,
+                    JobTypeId = o.JobTypeId
+                }).ToList();
+            }
+            return null;
         }
 
         public async Task<bool> CreateCrew(CrewsCreateDto crew)

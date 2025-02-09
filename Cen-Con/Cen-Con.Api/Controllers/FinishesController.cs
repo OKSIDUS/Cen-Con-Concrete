@@ -16,6 +16,28 @@ namespace Cen_Con.Api.Controllers
             _finishesService = finishesService;
         }
 
+        [HttpGet("get-finishes")]
+        public async Task<IActionResult> GetAllFinishes()
+        {
+            try
+            {
+                var result = await _finishesService.GetAllFinishes();
+                if (result == null)
+                {
+                    Log.Warning($"FinishesController: The finishes aren't exist!");
+                    return NotFound();
+
+                }
+                Log.Information($"FinishesController: The action GetAllFinishes() has finished with result: {result}");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"FinishesController: The action GetAllFinishes() has finished with error {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("get-finish-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,7 +54,7 @@ namespace Cen_Con.Api.Controllers
             }
             catch (Exception ex)
             {
-                Log.Debug($"FinishController: The finish get by id process has finished with error {ex.Message}");
+                Log.Error($"FinishController: The finish get by id process has finished with error {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }

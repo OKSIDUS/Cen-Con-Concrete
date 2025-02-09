@@ -14,27 +14,18 @@ namespace Cen_Con.BAL.Services
             _concreteOrderRepository = concreteOrderRepository;
         }
 
-        public async Task<bool> Create(string orderedBy)
+        public async Task<List<ConcreteOrderDto>> GetAllOrders()
         {
-            if (orderedBy is not null)
+            var orders = await _concreteOrderRepository.GetAllOrder();
+            if (orders is not null)
             {
-                var result = await _concreteOrderRepository.CreateConcreteOrder(new ConcreteOrder
+                return orders.Select(o => new ConcreteOrderDto
                 {
-                    OrderedBy = orderedBy
-                });
-                return result;
+                    Id = o.Id,
+                    OrderedBy = o.OrderedBy
+                }).ToList();
             }
-            return false;
-        }
-
-        public async Task<bool> Delete(int id)
-        {
-            if(id > 0)
-            {
-                var result = await _concreteOrderRepository.DeleteConcreteOrder(id);
-                return result;
-            }
-            return false;
+            return null;
         }
 
         public async Task<ConcreteOrderDto> GetById(int id)
@@ -53,20 +44,6 @@ namespace Cen_Con.BAL.Services
                 return null;
             }
             return null;
-        }
-
-        public async Task<bool> Update(ConcreteOrderDto order)
-        {
-            if(order is not null)
-            {
-                var result = await _concreteOrderRepository.UpdateConcreteOrder(new ConcreteOrder
-                {
-                    Id= order.Id,
-                    OrderedBy = order.OrderedBy
-                });
-                return result;
-            }
-            return false;
         }
     }
 }

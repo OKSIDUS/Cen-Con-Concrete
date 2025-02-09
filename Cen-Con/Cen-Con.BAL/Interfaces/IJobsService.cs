@@ -8,6 +8,6 @@ namespace Cen_Con.BAL.Interfaces
         Task<JobsDto?> GetById(int id);
         Task<bool> DeleteJob(int id);
         Task<bool> CreateJob(JobsCreateDto job);
-        Task<bool> UpdateJob(JobsDto job);
+        Task<bool> UpdateJob(JobUpdateDto job);
     }
 }

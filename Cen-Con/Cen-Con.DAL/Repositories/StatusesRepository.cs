@@ -1,6 +1,7 @@
 ﻿using Cen_Con.DAL.DataContext;
 using Cen_Con.DAL.DataContext.Entity;
 using Cen_Con.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Cen_Con.DAL.Repositories
@@ -12,6 +13,24 @@ namespace Cen_Con.DAL.Repositories
         public StatusesRepository(CenConDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<List<Statuses>> GetAllStatuses()
+        {
+            try
+            {
+                var statuses = await _dbContext.Statuses.ToListAsync();
+                if (statuses is null)
+                {
+                    Log.Warning($"No statuses were found!");
+                }
+                return statuses;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"The action GetAllStatuses() has finished with error: {ex.Message}!");
+                return null;
+            }
         }
 
         public async Task<bool> CreateStatus(Statuses status)

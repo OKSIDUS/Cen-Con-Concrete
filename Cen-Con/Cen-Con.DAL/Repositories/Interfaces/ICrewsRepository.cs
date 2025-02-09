@@ -4,6 +4,7 @@ namespace Cen_Con.DAL.Repositories.Interfaces
 {
     public interface ICrewsRepository
     {
+        Task<List<Crews>> GetAllCrews();
         Task<Crews?> GetById(int id);
         Task<bool> DeleteCrew(int id);
         Task<bool> CreateCrew(Crews crew);

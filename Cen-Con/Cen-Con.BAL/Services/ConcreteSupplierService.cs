@@ -1,5 +1,6 @@
 ﻿using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
+using Cen_Con.DAL.Repositories;
 using Cen_Con.DAL.Repositories.Interfaces;
 
 namespace Cen_Con.BAL.Services
@@ -13,28 +14,19 @@ namespace Cen_Con.BAL.Services
             _concreteSuppliersRepository = concreteSuppliersRepository;
         }
 
-        public async Task<bool> CreateConcreteSupplier(ConcreteSuppliersCreateDto supplier)
+        public async Task<List<ConcreteSuppliersDto>> GetAllSuppliers()
         {
-            if (supplier is not null)
+            var suppliers = await _concreteSuppliersRepository.GetAllSuppliers();
+            if (suppliers is not null)
             {
-                var result = await _concreteSuppliersRepository.CreateConcreteSupplier(new DAL.DataContext.Entity.ConcreteSuppliers
+                return suppliers.Select(o => new ConcreteSuppliersDto
                 {
-                    SupplierName = supplier.SupplierName,
-                    ContactInfo = supplier.ContactInfo,
-                });
-                return result;
+                    Id = o.Id,
+                    SupplierName = o.SupplierName,
+                    ContactInfo = o.ContactInfo
+                }).ToList();
             }
-            return false;
-        }
-
-        public async Task<bool> DeleteConcreteSupplier(int id)
-        {
-            if (id > 0)
-            {
-                var result = await _concreteSuppliersRepository.DeleteConcreteSupplier(id);
-                return result;
-            }
-            return false;
+            return null;
         }
 
         public async Task<ConcreteSuppliersDto?> GetById(int id)
@@ -54,21 +46,6 @@ namespace Cen_Con.BAL.Services
                 return null;
             }
             return null;
-        }
-
-        public async Task<bool> UpdateConcreteSupplier(ConcreteSuppliersDto client)
-        {
-            if (client is not null)
-            {
-                var result = await _concreteSuppliersRepository.UpdateConcreteSupplier(new DAL.DataContext.Entity.ConcreteSuppliers
-                {
-                    Id = client.Id,
-                    SupplierName = client.SupplierName,
-                    ContactInfo = client.ContactInfo
-                });
-                return result;
-            }
-            return false;
         }
     }
 }
