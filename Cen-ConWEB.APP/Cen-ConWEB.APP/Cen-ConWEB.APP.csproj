@@ -7,4 +7,14 @@
     <RootNamespace>Cen_ConWEB.APP</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cen-ConWEB.BAL\Cen-ConWEB.BAL.csproj" />
+    <ProjectReference Include="..\Cen-ConWEB.DAL\Cen-ConWEB.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

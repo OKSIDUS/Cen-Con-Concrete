@@ -1,0 +1,37 @@
+﻿@using Cen_ConWEB.BAL.Dtos.Types
+@model List<JobDto>
+
+<a href="/create-client" class="btn-link">Create a job</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Details</th>
+            <th>ID</th>
+            <th>ClientName</th>
+            <th>Location</th>
+            <th>SquareFeet</th>
+            <th>Depth</th>
+            <th>ConcreteCustomer</th>
+            <th>ConcreteSupplier</th>
+            <th>Status</th>
+            <th>CreatedAt</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            <tr>
+                <td><a href="/Jobs/get/@job.Id" class="btn-link">Details</a></td>
+                <td>@job.Id</td>
+                <td>@job.ClientName</td>
+                <td>@job.Location</td>
+                <td>@job.SquareFeet</td>
+                <td>@job.Depth</td>
+                <td>@job.ConcreteCustomer</td>
+                <td>@job.ConcreteSupplier</td>
+                <td>@job.Status</td>
+                <td>@job.CreatedAt</td>
+            </tr>
+        }
+    </tbody>
+</table>

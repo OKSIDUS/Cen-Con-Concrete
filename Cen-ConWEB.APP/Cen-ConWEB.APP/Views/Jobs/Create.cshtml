@@ -1,0 +1,73 @@
+﻿@using Cen_ConWEB.BAL.Dtos.Types
+@model JobCreateOptionsDto
+
+<form method="post" action="/Jobs/create-job-post">
+    <div hidden>
+        <label for="ClientId">Client:</label>
+        <select id="ClientId" name="ClientId" required>
+            <option value="@Model.ClientId"></option>
+        </select>
+    </div>
+    <div>
+        <label for="Location">Location:</label>
+        <input type="text" id="Location" name="Location" required />
+    </div>
+    <div>
+        <label for="SquareFeet">Square Feet:</label>
+        <input type="number" step="0.01" id="SquareFeet" name="SquareFeet" required />
+    </div>
+    <div>
+        <label for="Depth">Depth:</label>
+        <input type="number" step="0.01" id="Depth" name="Depth" required />
+    </div>
+    <div>
+        <label for="OrderBy">Order By:</label>
+        <select id="OrderBy" name="OrderBy" required>
+            @foreach (var customer in Model.Customers)
+            {
+                <option value="@customer.Id">@customer.OrderedBy</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="ConcreteSupplierId">Concrete Supplier:</label>
+        <select id="ConcreteSupplierId" name="ConcreteSupplierId" required>
+            @foreach (var supplier in Model.Suppliers)
+            {
+                <option value="@supplier.Id">@supplier.SupplierName</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="PourType">Pour Type:</label>
+        <input type="text" id="PourType" name="PourType" required />
+    </div>
+    <div>
+        <label for="FinishTypeId">Finish Type:</label>
+        <select id="FinishTypeId" name="FinishTypeId" required>
+            @foreach (var finish in Model.Finishes)
+            {
+                <option value="@finish.Id">@finish.FinishName</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="JobType">Job Type:</label>
+        <select id="JobType" name="JobType" required>
+            @foreach (var jobType in Model.JobTypes)
+            {
+                <option value="@jobType.Id">@jobType.TypeName</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="CrewId">Crew:</label>
+        <select id="CrewId" name="CrewId" required>
+            @foreach (var crew in Model.Crews)
+            {
+                <option value="@crew.Id">@crew.CrewName</option>
+            }
+        </select>
+    </div>
+    <button type="submit">Submit</button>
+</form>
