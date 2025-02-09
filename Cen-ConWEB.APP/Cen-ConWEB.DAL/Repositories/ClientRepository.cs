@@ -1,6 +1,7 @@
 ﻿using Cen_ConWEB.DAL.DataContext.Entity;
 using Cen_ConWEB.DAL.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
+using Serilog;
 using System.Net.Http.Json;
 
 namespace Cen_ConWEB.DAL.Repositories
@@ -17,30 +18,86 @@ namespace Cen_ConWEB.DAL.Repositories
 
         public async Task<List<Client>> GetAll()
         {
-            var response = await _httpClient.GetFromJsonAsync<List<Client>>("api/get-clients");
-            return response ?? new List<Client>();
+            try
+            {
+                Log.Information("ClientRepository: GetAll() started!");
+                var response = await _httpClient.GetFromJsonAsync<List<Client>>("api/get-clients");
+                if (response == null)
+                {
+                    Log.Warning($"ClientRepository: The action GetAll() can not be completed because of missing information!");
+                    return new List<Client>();
+                }
+                Log.Information("ClientRepository: The clients details information has been recived!");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"ClientRepository: The action GetAll() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
+                return null;
+            }
         }
 
         public async Task<Client> GetById(int id)
         {
-            var response = await _httpClient.GetFromJsonAsync<Client>($"api/get-client-by-id/{id}");
-            return response ?? new Client();
+            try
+            {
+                Log.Information("ClientRepository: GetById() started!");
+                var response = await _httpClient.GetFromJsonAsync<Client>($"api/get-client-by-id/{id}");
+                if (response == null)
+                {
+                    Log.Warning($"ClientRepository: The action GetById() can not be completed because of missing information!");
+                    return new Client();
+                }
+                Log.Information("The client details information has been recived!");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"ClientRepository: The action GetById() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
+                return null;
+            }
         }
 
         public async Task<bool> Create(Client client)
         {
-            if (client is not null)
+            try
             {
-                var response = _httpClient.PostAsJsonAsync<Client>($"api/create-client",client);
-                return true;
+                Log.Information("ClientRepository: Create() started!");
+                if (client is not null)
+                {
+                    var response = _httpClient.PostAsJsonAsync<Client>($"api/create-client", client);
+                    Log.Information("The client has been created!");
+                    return true;
+                }
+                Log.Warning($"ClientRepository: The action Create() can not be completed because of missing information!");
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Log.Error($"The action Create() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
+                return false;
+            }
         }
 
         public async Task<int> GetLastClient()
         {
-            var response = _httpClient.GetFromJsonAsync<int>($"api/get-last-client");
-            return response.Result;
+            try
+            {
+                Log.Information("ClientRepository: GetLastClient() started!");
+                var response = _httpClient.GetFromJsonAsync<int>($"api/get-last-client");
+                if (response == null)
+                {
+                    Log.Warning($"ClientRepository: The action GetById() can not be completed because of missing information!");
+                    return 0;
+                }
+                Log.Information("The client details information has been recived!");
+                return response.Result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"ClientRepository: The action GetLastClient() has finished with error: {ex.Message}! Aditional information: {ex.InnerException}!");
+                return 0;
+            }
         }
     }
 }
