@@ -1,8 +1,10 @@
 ﻿using Cen_Con.DAL.DataContext.Entity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace Cen_Con.DAL.DataContext
 {
-    public class CenConDbContext : DbContext
+    public class CenConDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Clients> Clients { get; set; }
         public DbSet<ConcreteOrder> OrderedBy { get; set; }
@@ -19,6 +21,8 @@ namespace Cen_Con.DAL.DataContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Clients>().HasKey(c => c.Id);
         }
     }
 }

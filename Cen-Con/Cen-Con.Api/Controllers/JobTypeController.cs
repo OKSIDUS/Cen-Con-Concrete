@@ -1,6 +1,5 @@
-using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
-using Cen_Con.BAL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -18,6 +17,7 @@ namespace Cen_Con.Api.Controllers
         }
 
         [HttpGet("get-job-types")]
+        [Authorize]
         public async Task<IActionResult> GetAllJobTypes()
         {
             try
