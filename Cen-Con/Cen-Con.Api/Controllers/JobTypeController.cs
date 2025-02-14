@@ -5,8 +5,9 @@ using Serilog;
 
 namespace Cen_Con.Api.Controllers
 {
-    [ApiController]
+    [Authorize]
     [Route("api/")]
+    [ApiController]
     public class JobTypeContoller : Controller
     {
         private readonly IJobTypeService _jobTypeService;
@@ -17,7 +18,6 @@ namespace Cen_Con.Api.Controllers
         }
 
         [HttpGet("get-job-types")]
-        [Authorize]
         public async Task<IActionResult> GetAllJobTypes()
         {
             try

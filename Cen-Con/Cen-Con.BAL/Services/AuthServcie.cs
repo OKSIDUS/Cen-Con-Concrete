@@ -24,27 +24,35 @@ namespace Cen_Con.BAL.Services
         public async Task<string> Authenticate(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, password))
+            if (user == null)
+                return null;
+            var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
+            if (!result.Succeeded)
+                return null;
+            //&& await _userManager.CheckPasswordAsync(user, password)
+
+            return GenerateJwtToken(user);
+        }
+        private string GenerateJwtToken(IdentityUser user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var tokenDescriptor = new SecurityTokenDescriptor
+                Subject = new ClaimsIdentity(new Claim[]
                 {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim(ClaimTypes.Email, email),
-                        new Claim(ClaimTypes.NameIdentifier, user.Id)
-                    }),
-                    Expires = DateTime.UtcNow.AddHours(2),
-                    SigningCredentials = creds
-                };
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id)
+                }),
+                Expires = DateTime.UtcNow.AddHours(2),
+                SigningCredentials = creds
+            };
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                return tokenHandler.WriteToken(token);
-            }
-            return null;
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

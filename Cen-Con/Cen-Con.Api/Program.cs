@@ -13,45 +13,8 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
-
-var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CenConDbContext>(options =>
-    options.UseSqlServer(defaultConnectionString));
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().
-    AddEntityFrameworkStores<CenConDbContext>();
-
-var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]));
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = key,
-        };
-    });
-
-builder.Services.AddAuthorization();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@.-_";
-});
-
-
 builder.Services.AddSwaggerGen(s =>
 {
     s.SwaggerDoc("v1", new OpenApiInfo { Title = "Cen-Con.Api", Version = "v1" });
@@ -81,12 +44,10 @@ builder.Services.AddSwaggerGen(s =>
         }
     });
 });
-// Настройка Serilog
-builder.Host.UseSerilog((context, services, configuration) =>
-{
-    configuration.ReadFrom.Configuration(context.Configuration);
-});
 
+var defaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<CenConDbContext>(options =>
+    options.UseSqlServer(defaultConnectionString));
 //DAL
 builder.Services.AddScoped<IClientsRepository, ClientRepository>();
 builder.Services.AddScoped<IConcreteSuppliersRepository, ConcreteSuppliersRepository>();
@@ -109,9 +70,39 @@ builder.Services.AddScoped<IConcreteOrderService, ConcreteOrderService>();
 builder.Services.AddScoped<IJobTypeService, JobTypeService>();
 
 
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().
+    AddEntityFrameworkStores<CenConDbContext>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@.-_";
+});
+builder.Services.AddAuthorization();
+
+
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
 app.UseSwagger();
