@@ -37,6 +37,7 @@ namespace Cen_Con.BAL.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var apiKey = _configuration["ApiSettings:ApiKey"];
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -44,7 +45,8 @@ namespace Cen_Con.BAL.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id)
+                    new Claim(ClaimTypes.Hash, user.Id),
+                    new Claim("ApiKey", apiKey)
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = creds

@@ -10,6 +10,7 @@ using Serilog;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Cen_Con.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +113,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseRouting();
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
