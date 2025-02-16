@@ -1,6 +1,7 @@
 using Cen_Con.BAL.Dtos.Types;
 using Cen_Con.BAL.Interfaces;
 using Cen_Con.BAL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -8,6 +9,7 @@ namespace Cen_Con.Api.Controllers
 {
     [ApiController]
     [Route("api/")]
+    [Authorize]
     public class StatusesController : Controller
     {
         private readonly IStatusesService _statusesService;

@@ -21,6 +21,9 @@ namespace Cen_Con.DAL.DataContext.Entity
         [Column("Email")]
         [Required]
         public string Email { get; set; }
+        [Column("Password")]
+        [Required]
+        public string Password { get; set; }
         [Column("CreatedAt")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

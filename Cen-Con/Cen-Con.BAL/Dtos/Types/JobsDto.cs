@@ -21,7 +21,7 @@ namespace Cen_Con.BAL.Dtos.Types
         public int StatusId { get; set; }
         public string? Status { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public int CrewId { get; set; }
         public string? CrewName { get; set; } 
 

@@ -92,5 +92,21 @@ namespace Cen_Con.DAL.Repositories
             }
         }
 
+        public async Task<bool> SignIn(string pas, string log)
+        {
+            if (!string.IsNullOrEmpty(pas) && !string.IsNullOrEmpty(log))
+            {
+                var result = await _dbContext.Clients.FindAsync(pas, log);
+                if (result is not null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
